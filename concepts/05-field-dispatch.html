@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 05 · The Field Dispatch — RASA</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --char:#1A1815;--char-2:#3A352F;--char-3:#6B645A;--char-4:#9C948A;
+  --bone:#F2EFE9;--bone-2:#E6E1D7;--bone-3:#D5CEC1;--white:#FCFAF6;
+  --orange:#FF5A1F;--orange-2:#DB4310;--olive:#5C6B4A;--sky:#3E6E8E;
+  --display:'Oswald',Impact,sans-serif;--body:'Source Serif 4',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --max:1320px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:17px;line-height:1.65;color:var(--char);background:var(--bone);-webkit-font-smoothing:antialiased;padding-bottom:56px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.02;letter-spacing:-.01em;text-transform:uppercase}
+a{color:inherit;text-decoration:none}
+.kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange)}
+.rule{height:2px;background:var(--char);border:0}
+
+/* masthead */
+.strip{background:var(--char);color:var(--bone)}
+.strip .wrap{display:flex;justify-content:space-between;align-items:center;height:36px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.strip .desks{display:flex;gap:20px;color:var(--char-4)}
+.strip .desks a:hover,.strip .desks a.on{color:var(--orange)}
+
+.mast{background:var(--bone);border-bottom:3px solid var(--char)}
+.mast .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:20px 40px}
+.mast .l,.mast .r{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--char-3)}
+.mast .r{text-align:right}
+.logo{font-family:var(--display);font-weight:700;font-size:clamp(34px,5vw,62px);letter-spacing:.02em;line-height:.92;text-align:center;white-space:nowrap}
+.logo small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.4em;color:var(--char-3);font-weight:400;margin-top:8px;text-transform:uppercase}
+
+.nav{position:sticky;top:0;z-index:70;background:var(--char);border-bottom:1px solid rgba(242,239,233,.16)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav ul{display:flex;gap:28px;list-style:none}
+.nav ul a{font-family:var(--display);font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-3);transition:.15s}
+.nav ul a:hover{color:var(--orange)}
+.nav .sm{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.06em;color:var(--bone)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-size:13.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:12px 20px;border:2px solid transparent;cursor:pointer;transition:.15s}
+.btn-o{background:var(--orange);color:#fff}.btn-o:hover{background:var(--orange-2)}
+.btn-k{background:var(--char);color:var(--bone)}.btn-k:hover{background:var(--orange)}
+.btn-l{border-color:var(--char);color:var(--char)}.btn-l:hover{background:var(--char);color:var(--bone)}
+.btn-wl{border-color:var(--bone);color:var(--bone)}.btn-wl:hover{background:var(--bone);color:var(--char)}
+
+/* photo frames */
+.pf{position:relative;background:var(--bone-2);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.pf::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,transparent,transparent 11px,rgba(26,24,21,.045) 11px,rgba(26,24,21,.045) 22px)}
+.pf .note{position:relative;z-index:2;text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--char-3);padding:20px;max-width:80%;line-height:1.7}
+.pf .note b{display:block;color:var(--orange);margin-bottom:7px;font-weight:500;font-size:9.5px}
+.pf.dk{background:var(--char-2)}.pf.dk .note{color:var(--bone-3)}
+
+/* lead story */
+.lead{padding:0 0 72px}
+.leadgrid{display:grid;grid-template-columns:1.55fr 1fr;gap:0;border-bottom:2px solid var(--char)}
+.leadmain{position:relative;border-right:2px solid var(--char)}
+.leadmain .pf{aspect-ratio:16/10}
+.leadtext{padding:34px 40px 40px}
+.leadtext h1{font-size:clamp(34px,4.6vw,60px);font-weight:700;letter-spacing:-.015em;line-height:.98;margin:14px 0 16px}
+.leadtext p{font-size:19px;color:var(--char-2);max-width:52ch}
+.leadtext .by{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--char-3);margin-top:18px}
+.side{display:flex;flex-direction:column}
+.sidestory{padding:26px 32px;border-bottom:1px solid var(--bone-3);flex:1}
+.sidestory:last-child{border-bottom:0}
+.sidestory h3{font-size:23px;font-weight:600;line-height:1.08;margin:10px 0 9px;letter-spacing:-.005em}
+.sidestory p{font-size:15px;color:var(--char-2);line-height:1.55}
+.sidestory:hover h3{color:var(--orange)}
+
+section{padding:76px 0}
+.shead{margin-bottom:40px;border-bottom:2px solid var(--char);padding-bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.shead h2{font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.01em}
+.shead p{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--char-3)}
+
+/* story grid */
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.story .pf{aspect-ratio:3/2;margin-bottom:16px;border:1px solid var(--bone-3)}
+.story .tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--olive);padding:3px 8px;display:inline-block;margin-bottom:10px}
+.story .tag.o{background:var(--orange)}.story .tag.s{background:var(--sky)}
+.story h3{font-size:24px;font-weight:600;line-height:1.08;margin-bottom:9px;letter-spacing:-.005em}
+.story p{font-size:15.5px;color:var(--char-2);line-height:1.55}
+.story .mt{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--char-3);margin-top:12px}
+.story:hover h3{color:var(--orange)}
+
+/* ===== the content engine ===== */
+.engine{background:var(--char);color:var(--bone)}
+.engine h2,.engine h3,.engine h4{color:var(--bone)}
+.engine .shead{border-bottom-color:rgba(242,239,233,.3)}
+.engine .shead p{color:var(--char-4)}
+.eflow{display:grid;grid-template-columns:.85fr auto 1.15fr;gap:34px;align-items:center}
+.esrc{border:2px solid var(--orange);padding:30px 28px;background:rgba(255,90,31,.08)}
+.esrc .k{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.esrc h3{font-size:30px;font-weight:700;margin-bottom:12px;line-height:1.02}
+.esrc p{font-size:15px;color:var(--bone-3)}
+.esrc ul{margin-top:16px;padding-left:0;list-style:none}
+.esrc li{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--bone-3);padding:5px 0;border-bottom:1px solid rgba(242,239,233,.14)}
+.esrc li:last-child{border-bottom:0}
+.earrow{font-size:38px;color:var(--orange);text-align:center;font-family:var(--display)}
+.eout{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.eo{border:1px solid rgba(242,239,233,.22);padding:18px 16px;transition:.16s}
+.eo:hover{border-color:var(--orange);background:rgba(255,90,31,.07)}
+.eo .n{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--orange);margin-bottom:9px}
+.eo h4{font-size:15.5px;font-weight:500;line-height:1.15;margin-bottom:6px;letter-spacing:0}
+.eo p{font-size:12.5px;color:var(--char-4);line-height:1.45;font-family:var(--body)}
+.enote{margin-top:34px;padding:22px 26px;border-left:3px solid var(--orange);background:rgba(242,239,233,.05)}
+.enote p{font-size:16px;color:var(--bone-3);max-width:70ch}
+
+/* desks */
+.desks4{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--char);border-bottom:2px solid var(--char)}
+.dk4{padding:30px 26px;border-right:1px solid var(--bone-3);transition:.16s}
+.dk4:last-child{border-right:0}
+.dk4:hover{background:var(--white)}
+.dk4 .n{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+.dk4 h3{font-size:21px;font-weight:600;margin-bottom:10px;line-height:1.08}
+.dk4 p{font-size:14.5px;color:var(--char-2);line-height:1.5}
+
+/* crew */
+.crew{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.cm .pf{aspect-ratio:3/4;margin-bottom:13px;border:1px solid var(--bone-3)}
+.cm h4{font-size:18px;font-weight:600;letter-spacing:0}
+.cm .rl{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--char-3);margin-top:5px}
+
+/* signup */
+.sub{background:var(--orange);color:#fff;padding:64px 0}
+.sub .wrap{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
+.sub h2{font-size:38px;color:#fff;max-width:16ch}
+.sub p{margin-top:10px;max-width:44ch;color:rgba(255,255,255,.9)}
+.subform{display:flex;gap:0;min-width:340px}
+.subform input{flex:1;padding:15px 16px;border:2px solid #fff;background:rgba(255,255,255,.14);color:#fff;font-family:var(--body);font-size:15px}
+.subform input::placeholder{color:rgba(255,255,255,.7)}
+.subform button{background:#fff;color:var(--orange);border:2px solid #fff;padding:15px 22px;font-family:var(--display);font-size:13.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+
+footer{background:var(--char);color:var(--char-4);padding:60px 0 32px}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:36px;border-bottom:1px solid rgba(242,239,233,.16)}
+footer h5{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:15px}
+footer li{list-style:none;margin-bottom:8px;font-size:14px}
+footer a:hover{color:var(--bone)}
+.fb{padding-top:24px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;flex-wrap:wrap;gap:10px}
+
+.ph{position:relative}
+body.show-ph .ph{background:rgba(255,90,31,.24);outline:1px dashed var(--orange);outline-offset:1px}
+
+.cbar{position:fixed;left:0;right:0;bottom:0;z-index:200;height:56px;background:#0B0E11;border-top:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:var(--mono);font-size:12px;color:#8FA3B0;gap:16px}
+.cbar a,.cbar button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B0;background:none;border:1px solid rgba(255,255,255,.16);padding:7px 11px;border-radius:2px;cursor:pointer;transition:.15s;white-space:nowrap}
+.cbar a:hover,.cbar button:hover{color:#fff;border-color:#00A9E0}
+.cbar a.on{background:#00A9E0;color:#04080B;border-color:#00A9E0;font-weight:500}
+.cbar .grp2{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.cbar .tag{font-size:10px;letter-spacing:.18em;color:#FFB020;border:1px solid rgba(255,176,32,.4);padding:5px 9px;border-radius:2px}
+.cbar .nm{color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+@media(max-width:1080px){.leadgrid{grid-template-columns:1fr}.leadmain{border-right:0;border-bottom:2px solid var(--char)}.sgrid,.crew{grid-template-columns:repeat(2,1fr)}.eflow{grid-template-columns:1fr}.earrow{transform:rotate(90deg)}.desks4{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.wrap{padding:0 18px}.nav ul,.strip .desks,.mast .l,.mast .r{display:none}.mast .wrap{grid-template-columns:1fr}.sgrid,.crew,.eout,.desks4{grid-template-columns:1fr}.cbar .nm{display:none}}
+</style>
+<link rel="stylesheet" href="../assets/polish.css">
+</head>
+<body>
+
+<div class="strip"><div class="wrap">
+  <div class="desks">
+    <a href="#" class="on">Surveying &amp; Realty</a><a href="#">Instruments</a><a href="#">Drone Vision Pro</a><a href="#">QuantumLab</a>
+  </div>
+  <div>Manila · Est. 1994</div>
+</div></div>
+
+<div class="mast"><div class="wrap">
+  <div class="l">Issue <span class="ph">No. 118</span><br>08 August 2026</div>
+  <div class="logo">RASA Field Dispatch<small>Surveying · Instruments · Aerial · Geospatial</small></div>
+  <div class="r">Luzon · Visayas · Mindanao<br>sales@rasasurvey.com</div>
+</div></div>
+
+<nav class="nav"><div class="wrap">
+  <span class="sm">RASA</span>
+  <ul><li><a href="#field">From the Field</a></li><li><a href="#engine">The Engine</a></li><li><a href="#desks">The Desks</a></li><li><a href="#crew">The Crew</a></li><li><a href="#">Services</a></li></ul>
+  <a href="#" class="btn btn-o">Request a quote</a>
+</div></nav>
+
+<!-- ===== lead story ===== -->
+<div class="lead"><div class="wrap" style="padding:0">
+  <div class="leadgrid">
+    <div class="leadmain">
+      <div class="pf"><img src="../assets/img/rasa-uavdrone-1.jpg" alt="RASA fixed-wing survey UAV on its catapult launcher"></div>
+      <div class="leadtext">
+        <span class="kick">Field Report · Expressway</span>
+        <h1>Flying the Central Luzon Link at 120 metres.</h1>
+        <p>Thirty kilometres of alignment, one weather window, and a LiDAR sensor that has to see the ground through the cane. How the corridor got measured.</p>
+        <div class="by ph">Words: RASA field team · Photographs: to be supplied · 6 min read</div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="sidestory"><span class="kick">Instruments</span><h3>What we actually check before we hand over an RTK rover</h3><p>The six-point calibration routine that stops a base-and-rover pair drifting halfway through a job.</p></div>
+      <div class="sidestory"><span class="kick">Marine</span><h3>Reading a bay: bathymetry for the Bataan–Cavite crossing</h3><p>Tide gauges, sound velocity, and why a survey boat is the slowest fast thing you will ever hire.</p></div>
+      <div class="sidestory"><span class="kick">The Trade</span><h3>Why your lot plan got rejected</h3><p>Four things a geodetic engineer looks for before signing, and three that will send it back.</p></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ===== from the field ===== -->
+<section id="field"><div class="wrap">
+  <div class="shead"><h2>From the Field</h2><p>Updated weekly · 3 desks contributing</p></div>
+  <div class="sgrid">
+    <div class="story"><div class="pf"><img class="stand-in" src="../assets/img/wc-drone-field.jpg" alt="Operator launching a survey drone in the field"></div>
+      <span class="tag o">Aerial</span><h3>Under the canopy</h3><p>Multi-target returns are the whole argument for waveform LiDAR. Here is what the second and third returns actually looked like over a forested corridor.</p><div class="mt ph">14 July 2026 · Drone Vision Pro</div></div>
+    <div class="story"><div class="pf"><img class="stand-in" src="../assets/img/wc-surveyor.jpg" alt="Surveyor working with a total station"></div>
+      <span class="tag">Technique</span><h3>One datum, six contractors</h3><p>On a large build, everyone brings their own control. Reconciling six networks to PRS92 before anyone pours concrete.</p><div class="mt ph">02 July 2026 · Surveying &amp; Realty</div></div>
+    <div class="story"><div class="pf"><img class="stand-in" src="../assets/img/wc-bridge-bucana.jpg" alt="Bridge crossing over coastal water"></div>
+      <span class="tag s">Marine</span><h3>Ten hours for one tide</h3><p>Hydrographic survey runs on the moon's schedule, not yours. Planning a bathymetric window around spring tides.</p><div class="mt ph">21 June 2026 · Surveying &amp; Realty</div></div>
+  </div>
+</div></section>
+
+<!-- ===== THE CONTENT ENGINE — the pitch ===== -->
+<section id="engine" class="engine"><div class="wrap">
+  <div class="shead"><h2>One field day. Nine published assets.</h2><p>The bottleneck is production, not ideas</p></div>
+  <div class="eflow">
+    <div class="esrc">
+      <div class="k">Input — one crew, one site</div>
+      <h3>What the crew already brings back</h3>
+      <p>Nothing here is extra work. This is what comes off the truck after any normal job.</p>
+      <ul>
+        <li>▸ Phone photos from the crew</li>
+        <li>▸ Drone footage from the flight</li>
+        <li>▸ The point cloud itself</li>
+        <li>▸ The engineer's field notes</li>
+        <li>▸ Instrument and datum log</li>
+      </ul>
+    </div>
+    <div class="earrow">→</div>
+    <div class="eout">
+      <div class="eo"><div class="n">01</div><h4>Project page</h4><p>Permanent entry on the register. Wins the next bid.</p></div>
+      <div class="eo"><div class="n">02</div><h4>Field report</h4><p>The long read. Ranks in search for years.</p></div>
+      <div class="eo"><div class="n">03</div><h4>LinkedIn carousel</h4><p>B2B audience. Where the buyers actually are.</p></div>
+      <div class="eo"><div class="n">04</div><h4>Short vertical</h4><p>60 seconds cut from footage you already shot.</p></div>
+      <div class="eo"><div class="n">05</div><h4>Technique note</h4><p>Positions the firm as the one that teaches.</p></div>
+      <div class="eo"><div class="n">06</div><h4>Instrument story</h4><p>Sells the gear without a sales post.</p></div>
+      <div class="eo"><div class="n">07</div><h4>Newsletter item</h4><p>Straight into recurring clients' inboxes.</p></div>
+      <div class="eo"><div class="n">08</div><h4>Capability slide</h4><p>Drops into the next prequalification pack.</p></div>
+      <div class="eo"><div class="n">09</div><h4>Recruitment post</h4><p>Young geodetic engineers want to see the work.</p></div>
+    </div>
+  </div>
+  <div class="enote">
+    <p>Ron and Jimbo currently plan weekly and are blocked on video editing time — so posts repeat and engagement falls. This concept treats the website as the publishing system, not the brochure: the crew uploads once, the site produces the variants, and the same field day feeds the bid record, the social channels and the newsletter.</p>
+  </div>
+</div></section>
+
+<!-- ===== the desks ===== -->
+<section id="desks"><div class="wrap">
+  <div class="shead"><h2>Four desks, one masthead</h2><p>One site · four companies</p></div>
+</div>
+<div class="desks4">
+  <div class="dk4"><div class="n">Desk I</div><h3>Surveying &amp; Realty</h3><p>Field reports, technique notes, project records. The practice since 1994.</p></div>
+  <div class="dk4"><div class="n">Desk II</div><h3>Surveying Instruments</h3><p>Gear reviews, calibration guides, what to buy and what not to. Catalogue behind it.</p></div>
+  <div class="dk4"><div class="n">Desk III</div><h3>Drone Vision Pro</h3><p>Flight logs, sensor comparisons, pilot training and airspace notes.</p></div>
+  <div class="dk4"><div class="n">Desk IV</div><h3>QuantumLab</h3><p>Data stories, GIS walkthroughs, what the point cloud reveals after processing.</p></div>
+</div></section>
+
+<!-- ===== crew ===== -->
+<section id="crew" style="background:var(--white)"><div class="wrap">
+  <div class="shead"><h2>The Crew</h2><p>Recruitment is a content problem too</p></div>
+  <div class="crew">
+    <div class="cm"><div class="pf"><img src="../assets/img/rasa-president.jpg" alt="Raymund Arnold S. Alberto" style="object-position:50% 20%"></div><h4>Raymund Arnold S. Alberto</h4><div class="rl">Geodetic Engineer · President<br>PRC 2013 Outstanding Professional</div></div>
+    <div class="cm"><div class="pf dk ph"><div class="note"><b>Portrait needed</b>Party chief in the field, hi-vis, instrument behind. 3:4.</div></div><h4 class="ph">Party chief</h4><div class="rl ph">Name and role to be supplied</div></div>
+    <div class="cm"><div class="pf dk ph"><div class="note"><b>Portrait needed</b>Drone pilot with controller, sky behind. 3:4.</div></div><h4 class="ph">Chief pilot</h4><div class="rl ph">Drone Vision Pro</div></div>
+    <div class="cm"><div class="pf dk ph"><div class="note"><b>Portrait needed</b>Processing desk, point cloud on screen. 3:4.</div></div><h4 class="ph">Geospatial lead</h4><div class="rl ph">QuantumLab Geosolutions</div></div>
+  </div>
+</div></section>
+
+<section class="sub"><div class="wrap">
+  <div><h2>The Dispatch, monthly.</h2><p>One field report, one technique note, one thing worth knowing about the gear. No sales blasts.</p></div>
+  <form class="subform" onsubmit="return false"><input placeholder="you@company.com.ph"><button>Subscribe</button></form>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div><div style="font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:.05em;color:var(--bone);margin-bottom:12px">RASA</div>
+    <p style="font-size:14px;max-width:34ch">Nationwide-capable integrated surveying since 1994. Raymund Arnold S. Alberto, Geodetic Engineer — PRC 2013 Outstanding Professional.</p></div>
+    <div><h5>The Dispatch</h5><ul><li><a href="#">From the Field</a></li><li><a href="#">Technique</a></li><li><a href="#">Instruments</a></li><li><a href="#">Archive</a></li></ul></div>
+    <div><h5>The Desks</h5><ul><li><a href="#">Surveying &amp; Realty</a></li><li><a href="#">Surveying Instruments</a></li><li><a href="#">Drone Vision Pro</a></li><li><a href="#">QuantumLab</a></li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="#">sales@rasasurvey.com</a></li><li><a href="#">+63 917 870 3551</a></li><li><a href="#">(02) 7000 0726</a></li></ul></div>
+  </div>
+  <div class="fb"><span>© 1994–2026 RASA Surveying and Realty</span><span>All photography positions are placeholders</span></div>
+</div></footer>
+
+<div class="cbar">
+  <div class="grp2"><a href="../index.html">← All concepts</a><span class="nm">05 · The Field Dispatch</span></div>
+  <div class="grp2">
+    <a href="01-instrument-grade.html">01</a><a href="02-national-record.html">02</a><a href="03-bid-book.html">03</a><a href="04-exchange.html">04</a><a href="05-field-dispatch.html" class="on">05</a><a href="06-the-standard.html">06</a>
+    <button onclick="document.body.classList.toggle('show-ph')">Highlight placeholders</button>
+    <span class="tag">CONCEPT PROTOTYPE</span>
+  </div>
+</div>
+<script src="../assets/polish.js"></script>
+</body>
+</html>
