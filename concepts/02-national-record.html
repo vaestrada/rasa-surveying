@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 02 · The National Record — RASA</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF8F1;--paper-2:#F3EEE3;--paper-3:#E8E0D0;
+  --ink:#1B2420;--ink-2:#3D4A44;--ink-3:#6E7C74;
+  --green:#2E5D4B;--green-2:#4A8A6F;--blue:#2C6E8F;--blue-2:#5AA3C0;
+  --clay:#C05A34;--sand:#D9A441;
+  --display:'Fraunces',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --max:1340px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:16px;line-height:1.6;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;padding-bottom:56px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.1;letter-spacing:-.015em}
+a{color:inherit;text-decoration:none}
+.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.rule{height:1px;background:var(--paper-3);border:0}
+
+/* paper texture */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;
+  background-image:radial-gradient(var(--paper-3) .5px,transparent .5px);background-size:4px 4px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(251,248,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-3)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px}
+.mark{font-family:var(--display);font-weight:700;font-size:27px;letter-spacing:-.02em;line-height:1}
+.mark span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--green);font-weight:400;margin-top:3px}
+.nav ul{display:flex;gap:32px;list-style:none}
+.nav ul a{font-size:14px;font-weight:500;padding-bottom:3px;border-bottom:1.5px solid transparent}
+.nav ul a:hover{border-bottom-color:var(--clay)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;padding:13px 24px;border-radius:3px;border:1.5px solid transparent;cursor:pointer;transition:.15s}
+.btn-p{background:var(--green);color:var(--paper)}.btn-p:hover{background:#24483A}
+.btn-o{border-color:var(--ink);color:var(--ink)}.btn-o:hover{background:var(--ink);color:var(--paper)}
+.btn-c{background:var(--clay);color:#fff}.btn-c:hover{background:#A6472690}
+
+/* hero */
+.hero{padding:64px 0 40px;position:relative;z-index:2}
+.hero .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(38px,4.6vw,62px);margin:20px 0 20px;letter-spacing:-.025em}
+.hero h1 em{font-style:italic;color:var(--green)}
+.hero p{font-size:18px;color:var(--ink-2);max-width:44ch;margin-bottom:30px}
+.herocta{display:flex;gap:12px;flex-wrap:wrap}
+.mapbox{position:relative;background:var(--paper-2);border:1px solid var(--paper-3);border-radius:4px;padding:14px;box-shadow:0 2px 0 var(--paper-3)}
+.mapbox .corner{position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+.mapbox .c1{top:8px;left:14px}.mapbox .c2{top:8px;right:14px}.mapbox .c3{bottom:8px;left:14px}.mapbox .c4{bottom:8px;right:14px}
+svg.phmap{width:100%;height:auto;display:block}
+.pin{cursor:pointer;transition:.15s}
+.pin:hover circle.h{r:16;opacity:.35}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);padding:9px 13px;border-radius:3px;font-size:12px;opacity:0;transition:.12s;transform:translate(-50%,-140%);white-space:nowrap;z-index:20}
+.tip b{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);display:block;margin-bottom:2px}
+
+/* legend */
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--paper-3)}
+.lg{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);cursor:pointer}
+.lg i{width:9px;height:9px;border-radius:50%;display:block}
+.lg:hover{color:var(--ink)}
+
+/* ledger stats */
+.ledger{border-top:1px solid var(--paper-3);border-bottom:1px solid var(--paper-3);background:var(--paper-2);position:relative;z-index:2}
+.ledger .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.ld{padding:34px 28px;border-right:1px solid var(--paper-3)}
+.ld:last-child{border-right:0}
+.ld .n{font-family:var(--display);font-size:42px;font-weight:600;line-height:1;letter-spacing:-.02em}
+.ld .n u{text-decoration:none;font-size:19px;color:var(--clay);margin-left:3px}
+.ld .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+
+section{padding:88px 0;position:relative;z-index:2}
+.shead{max-width:62ch;margin-bottom:46px}
+.shead h2{font-size:clamp(28px,3.4vw,42px);margin:14px 0 12px;letter-spacing:-.02em}
+.shead p{font-size:17px;color:var(--ink-2)}
+
+/* explorer */
+.explorer{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
+.reg{border:1px solid var(--paper-3);border-radius:4px;overflow:hidden;background:#fff}
+.reg .rh{display:grid;grid-template-columns:2.2fr 1fr .8fr;gap:12px;padding:12px 18px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.reg .rr{display:grid;grid-template-columns:2.2fr 1fr .8fr;gap:12px;padding:15px 18px;border-bottom:1px solid var(--paper-2);align-items:center;cursor:pointer;transition:.12s}
+.reg .rr:hover{background:var(--paper-2)}
+.reg .rr:last-child{border-bottom:0}
+.reg .rr .nm{font-weight:600;font-size:15px}
+.reg .rr .sc{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.06em}
+.reg .rr .yr{font-family:var(--mono);font-size:12px;color:var(--green);text-align:right}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:8px;vertical-align:1px}
+
+/* island coverage */
+.isles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.isle{background:#fff;border:1px solid var(--paper-3);border-radius:4px;padding:28px 26px;transition:.18s}
+.isle:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,36,32,.07)}
+.isle h3{font-size:23px;margin-bottom:6px}
+.isle .cnt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);margin-bottom:14px}
+.isle p{font-size:14px;color:var(--ink-2);line-height:1.6}
+.bar{height:5px;background:var(--paper-3);border-radius:3px;margin-top:18px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green)}
+
+/* timeline */
+.tl{position:relative;padding-left:0}
+.tl .line{position:absolute;left:0;right:0;top:38px;height:1px;background:var(--paper-3)}
+.tlrow{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative}
+.tli .yr{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--clay);margin-bottom:14px}
+.tli .mk{width:11px;height:11px;border-radius:50%;background:var(--green);border:2.5px solid var(--paper);margin-bottom:18px;position:relative;z-index:2}
+.tli h4{font-family:var(--display);font-size:18px;font-weight:600;margin-bottom:7px}
+.tli p{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+
+/* group layers */
+.layers{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.ly{border:1px solid var(--paper-3);border-radius:4px;padding:0;overflow:hidden;background:#fff;transition:.18s}
+.ly:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(27,36,32,.09)}
+.ly .top{height:70px;position:relative;overflow:hidden}
+.ly .bd{padding:24px 22px}
+.ly .lyr{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
+.ly h3{font-size:19px;margin-bottom:9px;letter-spacing:-.01em}
+.ly p{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+
+/* cta */
+.band{background:var(--ink);color:var(--paper);padding:80px 0}
+.band h2{font-size:40px;color:var(--paper);max-width:18ch}
+.band p{color:rgba(251,248,241,.72);margin-top:12px;max-width:46ch}
+.band .wrap{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
+.btn-l{background:var(--sand);color:var(--ink)}.btn-l:hover{background:#C8952F}
+.btn-w{border-color:rgba(251,248,241,.4);color:var(--paper)}.btn-w:hover{background:var(--paper);color:var(--ink)}
+
+footer{background:var(--paper-2);border-top:1px solid var(--paper-3);padding:64px 0 36px;position:relative;z-index:2}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:40px;border-bottom:1px solid var(--paper-3)}
+footer h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+footer li{list-style:none;margin-bottom:9px;font-size:14px;color:var(--ink-2)}
+footer a:hover{color:var(--clay)}
+.fb{padding-top:26px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-3);flex-wrap:wrap;gap:10px}
+
+.ph{position:relative}
+body.show-ph .ph{background:rgba(217,164,65,.28);outline:1px dashed var(--sand);outline-offset:1px;border-radius:2px}
+
+.cbar{position:fixed;left:0;right:0;bottom:0;z-index:200;height:56px;background:#0B0E11;border-top:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:var(--mono);font-size:12px;color:#8FA3B0;gap:16px}
+.cbar a,.cbar button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B0;background:none;border:1px solid rgba(255,255,255,.16);padding:7px 11px;border-radius:2px;cursor:pointer;transition:.15s;white-space:nowrap}
+.cbar a:hover,.cbar button:hover{color:#fff;border-color:#00A9E0}
+.cbar a.on{background:#00A9E0;color:#04080B;border-color:#00A9E0;font-weight:500}
+.cbar .grp2{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.cbar .tag{font-size:10px;letter-spacing:.18em;color:#FFB020;border:1px solid rgba(255,176,32,.4);padding:5px 9px;border-radius:2px}
+.cbar .nm{color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+@media(max-width:1080px){.hero .wrap,.explorer{grid-template-columns:1fr}.isles,.layers{grid-template-columns:repeat(2,1fr)}.tlrow{grid-template-columns:repeat(2,1fr);gap:34px}.tl .line{display:none}.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.wrap{padding:0 20px}.nav ul{display:none}.ledger .wrap,.isles,.layers{grid-template-columns:1fr}.cbar .nm{display:none}}
+</style>
+<link rel="stylesheet" href="../assets/polish.css">
+</head>
+<body>
+
+<nav class="nav"><div class="wrap">
+  <a href="#" class="mark" style="display:flex;align-items:center;gap:12px"><img src="../assets/img/rasa-logo.png" alt="RASA" style="height:40px;width:auto"><span style="display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:var(--green);font-weight:400;border-left:1px solid var(--paper-3);padding-left:12px;line-height:1.6">THE NATIONAL<br>SURVEY RECORD</span></a>
+  <ul>
+    <li><a href="#map">The Record</a></li><li><a href="#isles">Coverage</a></li>
+    <li><a href="#tl">Since 1994</a></li><li><a href="#grp">The Group</a></li><li><a href="#">Services</a></li>
+  </ul>
+  <a href="#cta" class="btn btn-c">Request a quote</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <div class="lbl">Est. 1994 · Luzon · Visayas · Mindanao</div>
+    <h1>We have already <em>measured</em> most of this country.</h1>
+    <p>Thirty years of expressways, bridges, ports, dams and transmission corridors — plotted, sourced and searchable. Start with the map.</p>
+    <div class="herocta">
+      <a href="#map" class="btn btn-p">Explore the record</a>
+      <a href="#cta" class="btn btn-o">Request a quote</a>
+    </div>
+  </div>
+  <div class="mapbox" id="mapbox">
+    <span class="corner c1">14°35′N 121°00′E</span><span class="corner c2">PRS92 / PTM</span>
+    <span class="corner c3">SCALE — STYLISED</span><span class="corner c4">N ↑</span>
+    <svg class="phmap" viewBox="0 0 560 780" id="phmap" aria-label="Stylised map of the Philippines with project locations"></svg>
+    <div class="legend" id="legend"></div>
+    <div class="tip" id="tip"></div>
+  </div>
+</div></header>
+
+<div class="ledger"><div class="wrap">
+  <div class="ld"><div class="n">30<u>+ yrs</u></div><div class="l">Unbroken since 1994</div></div>
+  <div class="ld ph"><div class="n">1,240<u>+</u></div><div class="l">Projects on the record</div></div>
+  <div class="ld ph"><div class="n">17</div><div class="l">Regions surveyed</div></div>
+  <div class="ld ph"><div class="n">86<u>k ha</u></div><div class="l">Air &amp; ground coverage</div></div>
+</div></div>
+
+<section id="map"><div class="wrap">
+  <div class="shead">
+    <div class="lbl">The Record</div>
+    <h2>Every project, sourced and searchable.</h2>
+    <p>Click a sector in the legend to filter the map. Each entry carries the instrument, the datum and the delivered tolerance — the things a procurement officer actually checks.</p>
+  </div>
+  <div class="explorer">
+    <div>
+      <p style="font-size:15px;color:var(--ink-2);margin-bottom:20px;max-width:42ch">The current rasasurvey.com lists ten project <em>categories</em> and not one project. This is the single largest untapped asset in the business — three decades of nationally significant work, undocumented.</p>
+      <div style="background:#fff;border:1px solid var(--paper-3);border-left:3px solid var(--clay);padding:22px 24px;border-radius:3px">
+        <div class="lbl" style="color:var(--clay);margin-bottom:10px">Why this wins bids</div>
+        <p style="font-size:14.5px;color:var(--ink-2)">A shortlisting officer scanning three firms will pick the one that can prove comparable work in under a minute. Right now RASA cannot. This makes that provable.</p>
+      </div>
+    </div>
+    <div class="reg">
+      <div class="rh"><span>Project</span><span>Sector</span><span>Year</span></div>
+      <div class="rr"><span class="nm"><i class="dot" style="background:var(--clay)"></i>Central Luzon Link Expressway</span><span class="sc">Expressway</span><span class="yr ph">2019</span></div>
+      <div class="rr"><span class="nm"><i class="dot" style="background:var(--blue)"></i>Bataan–Cavite Interlink Bridge</span><span class="sc">Bridge · Marine</span><span class="yr ph">2021</span></div>
+      <div class="rr ph"><span class="nm"><i class="dot" style="background:var(--green-2)"></i>Hydropower catchment survey</span><span class="sc">Hydropower</span><span class="yr">2020</span></div>
+      <div class="rr ph"><span class="nm"><i class="dot" style="background:var(--sand)"></i>Transmission corridor, Luzon grid</span><span class="sc">Transmission</span><span class="yr">2022</span></div>
+      <div class="rr ph"><span class="nm"><i class="dot" style="background:var(--blue-2)"></i>Port &amp; harbour bathymetry</span><span class="sc">Airport &amp; port</span><span class="yr">2023</span></div>
+      <div class="rr ph"><span class="nm"><i class="dot" style="background:var(--ink-3)"></i>Parcellary survey, road ROW</span><span class="sc">Parcellary</span><span class="yr">2024</span></div>
+      <div style="padding:14px 18px;background:var(--paper-2);font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3)">▸ 1,234 MORE ON THE RECORD — <span style="color:var(--clay)">CONTENT TO BE SUPPLIED</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="isles" style="background:var(--paper-2);border-top:1px solid var(--paper-3);border-bottom:1px solid var(--paper-3)"><div class="wrap">
+  <div class="shead"><div class="lbl">Coverage</div><h2>Nationwide is a claim. This is the evidence.</h2></div>
+  <div class="isles">
+    <div class="isle"><h3>Luzon</h3><div class="cnt ph">640+ projects</div><p>Expressway corridors, the Luzon transmission grid, hydropower catchments and NCR infrastructure.</p><div class="bar"><i style="width:82%"></i></div></div>
+    <div class="isle"><h3>Visayas</h3><div class="cnt ph">310+ projects</div><p>Port and harbour bathymetry, island interconnection, fishport and coastal works.</p><div class="bar"><i style="width:48%;background:var(--blue)"></i></div></div>
+    <div class="isle"><h3>Mindanao</h3><div class="cnt ph">290+ projects</div><p>Mining concessions, pipeline routes, agricultural parcellary and river basin survey.</p><div class="bar"><i style="width:44%;background:var(--clay)"></i></div></div>
+  </div>
+</div></section>
+
+<section id="tl"><div class="wrap">
+  <div class="shead"><div class="lbl">Since 1994</div><h2>Three decades, four companies.</h2></div>
+  <div class="tl"><div class="line"></div><div class="tlrow">
+    <div class="tli"><div class="yr">1994</div><div class="mk"></div><h4>RASA founded</h4><p>Geodetic survey practice established under Raymund Arnold S. Alberto.</p></div>
+    <div class="tli ph"><div class="yr">2011</div><div class="mk"></div><h4>Instruments arm</h4><p>RASA Surveying Instruments begins equipment supply and calibration.</p></div>
+    <div class="tli"><div class="yr">2013</div><div class="mk"></div><h4>PRC recognition</h4><p>Outstanding Professional in Geodetic Engineering awarded.</p></div>
+    <div class="tli ph"><div class="yr">2018</div><div class="mk"></div><h4>Airborne LiDAR</h4><p>RIEGL miniVUX-1UAV brought into the fleet for corridor capture.</p></div>
+    <div class="tli ph"><div class="yr">2024</div><div class="mk"></div><h4>Four companies</h4><p>Drone Vision Pro and QuantumLab Geosolutions complete the group.</p></div>
+  </div></div>
+</div></section>
+
+<section id="grp" style="background:var(--paper-2);border-top:1px solid var(--paper-3)"><div class="wrap">
+  <div class="shead"><div class="lbl">The Group</div><h2>Four companies, read as four map layers.</h2>
+  <p>One site, one login, one enquiry desk. Toggle a layer and the whole site re-scopes to that business.</p></div>
+  <div class="layers">
+    <div class="ly"><div class="top" style="background:linear-gradient(135deg,#2E5D4B,#4A8A6F)"></div><div class="bd"><div class="lyr">Layer 01 · Services</div><h3>Surveying &amp; Realty</h3><p>Land, engineering, construction and specialized survey. The parent firm.</p></div></div>
+    <div class="ly"><div class="top" style="background:linear-gradient(135deg,#2C6E8F,#5AA3C0)"></div><div class="bd"><div class="lyr">Layer 02 · Equipment</div><h3>Surveying Instruments</h3><p>Total stations, GNSS, scanners. Demo, calibrate, train, support.</p></div></div>
+    <div class="ly"><div class="top" style="background:linear-gradient(135deg,#C05A34,#D9A441)"></div><div class="bd"><div class="lyr">Layer 03 · Aerial</div><h3>Drone Vision Pro</h3><p>UAV platforms, payloads, pilot training and aerial capture.</p></div></div>
+    <div class="ly"><div class="top" style="background:linear-gradient(135deg,#1B2420,#3D4A44)"></div><div class="bd"><div class="lyr">Layer 04 · Software</div><h3>QuantumLab Geosolutions</h3><p>GIS, spatial data management, analytics over survey output.</p></div></div>
+  </div>
+</div></section>
+
+<section id="cta" class="band"><div class="wrap">
+  <div><h2>Tell us about the site.</h2><p>Location, deliverable, deadline. We come back with method, instrument and a fixed schedule.</p></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap"><a href="#" class="btn btn-l">Request a quote</a><a href="#" class="btn btn-w">Talk to an engineer</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div><div class="mark" style="margin-bottom:14px">RASA<span>SURVEYING &amp; REALTY</span></div>
+    <p style="font-size:14px;color:var(--ink-2);max-width:34ch">Nationwide-capable integrated surveying since 1994. Raymund Arnold S. Alberto, Geodetic Engineer — PRC 2013 Outstanding Professional.</p></div>
+    <div><h5>The Record</h5><ul><li><a href="#">By sector</a></li><li><a href="#">By region</a></li><li><a href="#">By year</a></li><li><a href="#">Capability statement</a></li></ul></div>
+    <div><h5>The Group</h5><ul><li><a href="#">Surveying &amp; Realty</a></li><li><a href="#">Surveying Instruments</a></li><li><a href="#">Drone Vision Pro</a></li><li><a href="#">QuantumLab</a></li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="#">sales@rasasurvey.com</a></li><li><a href="#">+63 917 870 3551</a></li><li><a href="#">(02) 7000 0726</a></li></ul></div>
+  </div>
+  <div class="fb"><span>© 1994–2026 RASA Surveying and Realty</span><span>Map is stylised — not a survey product</span></div>
+</div></footer>
+
+<div class="cbar">
+  <div class="grp2"><a href="../index.html">← All concepts</a><span class="nm">02 · The National Record</span></div>
+  <div class="grp2">
+    <a href="01-instrument-grade.html">01</a><a href="02-national-record.html" class="on">02</a><a href="03-bid-book.html">03</a><a href="04-exchange.html">04</a><a href="05-field-dispatch.html">05</a><a href="06-the-standard.html">06</a>
+    <button onclick="document.body.classList.toggle('show-ph')">Highlight placeholders</button>
+    <span class="tag">CONCEPT PROTOTYPE</span>
+  </div>
+</div>
+
+<script>
+(function(){
+// --- stylised Philippines: simplified island outlines (NOT a survey product) ---
+var isles=[
+ // Luzon
+ "M300 62 L318 78 L322 104 L338 118 L334 146 L346 168 L340 196 L352 214 L344 240 L356 262 L340 286 L318 292 L306 312 L286 300 L268 316 L252 300 L246 268 L232 250 L238 222 L226 200 L236 176 L228 150 L244 128 L252 96 L272 82 Z",
+ // Bicol tail
+ "M340 286 L366 296 L382 318 L400 322 L392 342 L370 336 L352 320 L336 306 Z",
+ // Mindoro
+ "M244 330 L272 336 L280 360 L262 378 L238 368 L232 344 Z",
+ // Palawan
+ "M176 392 L196 400 L160 470 L120 528 L96 560 L82 552 L108 508 L146 444 Z",
+ // Panay
+ "M300 396 L330 402 L336 428 L318 448 L294 440 L288 414 Z",
+ // Negros
+ "M344 412 L364 420 L362 456 L344 470 L332 448 L336 424 Z",
+ // Cebu
+ "M376 410 L388 416 L386 462 L374 470 L370 434 Z",
+ // Bohol
+ "M396 452 L420 458 L418 478 L396 480 Z",
+ // Leyte
+ "M404 396 L424 400 L428 432 L410 444 L398 420 Z",
+ // Samar
+ "M414 356 L444 362 L448 392 L426 396 L410 376 Z",
+ // Mindanao
+ "M300 528 L338 520 L368 532 L396 522 L424 536 L440 562 L432 592 L444 618 L426 646 L400 654 L378 674 L350 668 L328 680 L306 662 L288 636 L296 608 L280 584 L292 552 Z"
+];
+var pins=[
+ {x:296,y:150,s:"Expressway",n:"Central Luzon Link Expressway",m:"CLLEX · corridor LiDAR",c:"#C05A34",real:1},
+ {x:280,y:296,s:"Bridge · Marine",n:"Bataan–Cavite Interlink Bridge",m:"BCIB · bathymetric",c:"#2C6E8F",real:1},
+ {x:252,y:186,s:"Hydropower",n:"Reservoir & catchment",m:"TLS · UAV",c:"#4A8A6F"},
+ {x:330,y:120,s:"Transmission",n:"Luzon grid corridor",m:"Route alignment",c:"#D9A441"},
+ {x:318,y:424,s:"Airport & port",n:"Panay port bathymetry",m:"Multibeam",c:"#5AA3C0"},
+ {x:378,y:440,s:"Parcellary",n:"Cebu road ROW",m:"Parcellary survey",c:"#6E7C74"},
+ {x:140,y:470,s:"Mining",n:"Palawan concession",m:"Volume & topo",c:"#C05A34"},
+ {x:360,y:590,s:"Pipeline",n:"Mindanao route survey",m:"Alignment",c:"#4A8A6F"},
+ {x:420,y:600,s:"Hydrographic",n:"River basin survey",m:"Single-beam",c:"#2C6E8F"},
+ {x:300,y:600,s:"Mining",n:"Fishport & coastal",m:"Topo-bathy",c:"#D9A441"},
+ {x:430,y:378,s:"Airport & port",n:"Samar coastal works",m:"Topographic",c:"#5AA3C0"},
+ {x:250,y:352,s:"Expressway",n:"Mindoro alignment",m:"Route survey",c:"#C05A34"}
+];
+var svg=document.getElementById('phmap'),s='';
+// graticule
+for(var gx=40;gx<560;gx+=52) s+='<line x1="'+gx+'" y1="20" x2="'+gx+'" y2="760" stroke="#E8E0D0" stroke-width="1"/>';
+for(var gy=40;gy<780;gy+=52) s+='<line x1="20" y1="'+gy+'" x2="540" y2="'+gy+'" stroke="#E8E0D0" stroke-width="1"/>';
+// sea contour halo
+isles.forEach(function(d){ s+='<path d="'+d+'" fill="none" stroke="#5AA3C0" stroke-width="7" opacity=".13"/>'; });
+isles.forEach(function(d){ s+='<path d="'+d+'" fill="#E8E0D0" stroke="#2E5D4B" stroke-width="1.4" stroke-linejoin="round"/>'; });
+// pins
+pins.forEach(function(p,i){
+  s+='<g class="pin" data-i="'+i+'" data-s="'+p.s+'">'+
+     '<circle class="h" cx="'+p.x+'" cy="'+p.y+'" r="11" fill="'+p.c+'" opacity=".18"/>'+
+     '<circle cx="'+p.x+'" cy="'+p.y+'" r="'+(p.real?5.5:4)+'" fill="'+p.c+'" stroke="#FBF8F1" stroke-width="1.6"/>'+
+     (p.real?'<circle cx="'+p.x+'" cy="'+p.y+'" r="10" fill="none" stroke="'+p.c+'" stroke-width="1" opacity=".55"/>':'')+
+     '</g>';
+});
+s+='<text x="30" y="756" fill="#6E7C74" font-family="JetBrains Mono,monospace" font-size="9" letter-spacing="1.4">STYLISED OUTLINE — ILLUSTRATIVE ONLY</text>';
+svg.innerHTML=s;
+
+// legend
+var sectors={};pins.forEach(function(p){sectors[p.s]=p.c});
+var lg=document.getElementById('legend'),h='<span class="lg" data-f="all" style="color:var(--ink)"><i style="background:var(--ink)"></i>All sectors</span>';
+Object.keys(sectors).forEach(function(k){h+='<span class="lg" data-f="'+k+'"><i style="background:'+sectors[k]+'"></i>'+k+'</span>'});
+lg.innerHTML=h;
+lg.querySelectorAll('.lg').forEach(function(el){
+  el.onclick=function(){
+    var f=el.getAttribute('data-f');
+    svg.querySelectorAll('.pin').forEach(function(p){
+      p.style.opacity=(f==='all'||p.getAttribute('data-s')===f)?1:.14;
+    });
+    lg.querySelectorAll('.lg').forEach(function(x){x.style.color=''});
+    el.style.color='var(--ink)';
+  };
+});
+// tooltip
+var tip=document.getElementById('tip'),box=document.getElementById('mapbox');
+svg.querySelectorAll('.pin').forEach(function(g){
+  g.addEventListener('mouseenter',function(e){
+    var p=pins[+g.getAttribute('data-i')];
+    tip.innerHTML='<b>'+p.s+'</b>'+p.n+' — '+p.m+(p.real?'':' <span style="opacity:.5">(placeholder)</span>');
+    var r=g.getBoundingClientRect(),b=box.getBoundingClientRect();
+    tip.style.left=(r.left-b.left+r.width/2)+'px';tip.style.top=(r.top-b.top)+'px';tip.style.opacity=1;
+  });
+  g.addEventListener('mouseleave',function(){tip.style.opacity=0});
+});
+})();
+</script>
+<script src="../assets/polish.js"></script>
+</body>
+</html>

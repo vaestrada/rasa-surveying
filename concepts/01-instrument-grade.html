@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 01 · Instrument Grade — RASA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink-900:#05090C;--ink-800:#0A1116;--ink-700:#111B22;--ink-600:#1A2731;--ink-500:#273744;
+  --ink-300:#64798A;--ink-200:#9AACB8;--ink-100:#C9D5DD;--ink-050:#E9EFF3;
+  --datum-700:#00658A;--datum-600:#0089B8;--datum-500:#00A9E0;--datum-400:#3CC3F0;
+  --amber-600:#E09000;--amber-500:#FFB020;
+  --ramp-1:#0B3A54;--ramp-2:#00A9E0;--ramp-3:#4FD8A6;--ramp-4:#FFB020;--ramp-5:#FF6A3D;
+  --page:#FFFFFF;--sunken:#F4F7F9;--border:#E1E8ED;
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --max:1320px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:16px;line-height:1.65;color:var(--ink-800);background:var(--page);-webkit-font-smoothing:antialiased;padding-bottom:56px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:800;letter-spacing:-.022em;line-height:1.08}
+a{color:inherit;text-decoration:none}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--datum-500);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--amber-500)}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:.01em}
+
+/* ---------- header ---------- */
+.util{background:var(--ink-900);border-bottom:1px solid rgba(255,255,255,.08)}
+.util .wrap{display:flex;align-items:center;justify-content:space-between;height:40px}
+.brandtabs{display:flex;gap:2px}
+.brandtabs button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:none;border:0;color:var(--ink-300);padding:6px 12px;cursor:pointer;border-bottom:2px solid transparent;transition:.15s}
+.brandtabs button:hover{color:var(--ink-100)}
+.brandtabs button.on{color:#fff;border-bottom-color:var(--amber-500)}
+.util .contact{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-300)}
+.util .contact b{color:var(--ink-100);font-weight:500}
+
+.nav{position:sticky;top:0;z-index:60;background:rgba(5,9,12,.86);backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid rgba(255,255,255,.12)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.mark{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.03em;color:#fff;line-height:1}
+.mark span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:var(--datum-400);font-weight:400;margin-top:3px}
+.nav ul{display:flex;gap:30px;list-style:none}
+.nav ul a{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-100);transition:.15s}
+.nav ul a:hover{color:var(--amber-500)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:13px 22px;border-radius:2px;border:1px solid transparent;cursor:pointer;transition:.12s;font-weight:500}
+.btn-a{background:var(--amber-500);color:var(--ink-900)}
+.btn-a:hover{background:var(--amber-600)}
+.btn-c{background:var(--datum-500);color:#fff}
+.btn-c:hover{background:var(--datum-600)}
+.btn-g{background:transparent;color:#fff;border-color:rgba(255,255,255,.24)}
+.btn-g:hover{border-color:var(--datum-500);color:var(--datum-400)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--ink-900);overflow:hidden;min-height:640px;display:flex;align-items:center}
+.grat{position:absolute;inset:0;background-image:linear-gradient(rgba(0,169,224,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(0,169,224,.14) 1px,transparent 1px);background-size:48px 48px;opacity:.55}
+.hero svg.cloud{position:absolute;right:-4%;top:0;height:100%;width:62%;opacity:.9}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,9,12,.96) 0%,rgba(5,9,12,.78) 46%,rgba(5,9,12,.08) 100%)}
+.hero .wrap{position:relative;z-index:3;padding-top:96px;padding-bottom:96px}
+.hero h1{font-size:clamp(40px,5.2vw,72px);color:#fff;letter-spacing:-.03em;line-height:1.02;max-width:16ch;margin:22px 0 20px}
+.hero p{color:var(--ink-200);font-size:18px;line-height:1.62;max-width:46ch;margin-bottom:34px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.readout{position:absolute;left:40px;bottom:28px;z-index:3;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-300);display:flex;gap:26px}
+.readout b{color:var(--datum-400);font-weight:500}
+
+/* ---------- stats ---------- */
+.stats{background:var(--ink-800);border-top:1px solid rgba(255,255,255,.08)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.stat{background:var(--ink-800);padding:38px 28px}
+.stat .n{font-family:var(--display);font-size:44px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1}
+.stat .n u{text-decoration:none;color:var(--amber-500);font-size:22px;margin-left:4px}
+.stat .l{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-300);margin-top:10px}
+
+/* ---------- sections ---------- */
+section{padding:96px 0}
+.dark{background:var(--ink-900);color:#fff;padding:128px 0;position:relative;overflow:hidden}
+.dark h2{color:#fff}
+.sunken{background:var(--sunken)}
+.shead{max-width:64ch;margin-bottom:52px}
+.shead h2{font-size:clamp(28px,3.6vw,44px);margin:18px 0 14px}
+.shead p{color:var(--ink-500);font-size:18px}
+.dark .shead p{color:var(--ink-200)}
+
+.svcgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.svc{background:#fff;border:1px solid var(--border);border-radius:4px;padding:32px 28px;transition:.2s cubic-bezier(.2,.7,.3,1);position:relative;overflow:hidden}
+.svc::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--amber-500);transform:scaleX(0);transform-origin:left;transition:.2s}
+.svc:hover{transform:translateY(-3px);border-color:var(--datum-500);box-shadow:0 12px 32px rgba(5,9,12,.10)}
+.svc:hover::before{transform:scaleX(1)}
+.svc .ico{width:34px;height:34px;stroke:var(--datum-500);fill:none;stroke-width:1.75;margin-bottom:18px;transition:.2s}
+.svc:hover .ico{stroke:var(--amber-500)}
+.svc h3{font-size:20px;margin-bottom:10px;letter-spacing:-.008em}
+.svc p{font-size:14px;color:var(--ink-500);line-height:1.6}
+.svc .spec{margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-family:var(--mono);font-size:12px;color:var(--datum-600);letter-spacing:.04em}
+
+/* ---------- sensor ---------- */
+.sensor{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+.specsheet{border:1px solid rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+.specsheet .row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:15px 22px;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px}
+.specsheet .row:last-child{border-bottom:0}
+.specsheet .row span:first-child{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-300);align-self:center}
+.specsheet .row span:last-child{font-family:var(--mono);font-size:14px;color:#fff;font-weight:500}
+.specsheet .row span:last-child em{color:var(--amber-500);font-style:normal}
+.sensorviz{position:relative;border:1px solid rgba(255,255,255,.12);border-radius:4px;background:#070B0F;aspect-ratio:4/3;overflow:hidden}
+
+/* ---------- projects ---------- */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.chip{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--border);border-radius:999px;background:#fff;cursor:pointer;transition:.15s;color:var(--ink-500)}
+.chip:hover{border-color:var(--datum-500);color:var(--datum-600)}
+.chip.on{background:var(--ink-900);color:#fff;border-color:var(--ink-900)}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.proj{border:1px solid var(--border);border-radius:4px;overflow:hidden;background:#fff;transition:.2s;cursor:pointer}
+.proj:hover{transform:translateY(-3px);border-color:var(--datum-500);box-shadow:0 12px 32px rgba(5,9,12,.10)}
+.frame{aspect-ratio:4/5;position:relative;background:var(--ink-800);overflow:hidden}
+.frame .cap{position:absolute;left:0;right:0;bottom:0;padding:20px;background:linear-gradient(to top,rgba(5,9,12,.88),transparent);color:#fff}
+.frame .cap .s{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-500);margin-bottom:6px}
+.frame .cap h4{font-size:19px;letter-spacing:-.01em}
+.proj .meta{padding:16px 20px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--ink-300);letter-spacing:.04em}
+
+/* ---------- group ---------- */
+.grp{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+.gcard{background:var(--ink-900);padding:34px 26px;transition:.2s;cursor:pointer}
+.gcard:hover{background:var(--ink-700)}
+.gcard .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-900);background:var(--datum-500);display:inline-block;padding:3px 8px;border-radius:2px;margin-bottom:16px}
+.gcard:nth-child(2) .tag{background:var(--ramp-3)}
+.gcard:nth-child(3) .tag{background:var(--amber-500)}
+.gcard:nth-child(4) .tag{background:var(--ramp-5);color:#fff}
+.gcard h3{font-size:19px;color:#fff;margin-bottom:10px;letter-spacing:-.01em}
+.gcard p{font-size:13.5px;color:var(--ink-200);line-height:1.6}
+.gcard .go{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--datum-400);margin-top:18px;display:block}
+
+/* ---------- partners ---------- */
+.plogos{display:flex;gap:56px;align-items:center;justify-content:center;flex-wrap:wrap;padding:16px 0}
+.plogo{font-family:var(--display);font-weight:700;font-size:18px;color:var(--ink-300);letter-spacing:-.01em;opacity:.75;transition:.2s}
+.plogo:hover{opacity:1;color:var(--ink-700)}
+
+/* ---------- cta band ---------- */
+.band{background:var(--datum-700);color:#fff;padding:80px 0}
+.band .wrap{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.band h2{font-size:36px;color:#fff;max-width:20ch}
+.band p{color:rgba(255,255,255,.78);margin-top:10px;max-width:44ch}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink-900);color:var(--ink-200);padding:72px 0 40px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.12)}
+footer h5{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:18px;font-weight:500}
+footer li{list-style:none;margin-bottom:9px;font-size:14px}
+footer a:hover{color:var(--amber-500)}
+.fbot{padding-top:28px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--ink-300);flex-wrap:wrap;gap:12px}
+
+/* ---------- placeholder marking ---------- */
+.ph{position:relative}
+body.show-ph .ph{background:rgba(255,176,32,.20);outline:1px dashed var(--amber-500);outline-offset:1px;border-radius:2px}
+body.show-ph .ph.blk{background:rgba(255,176,32,.10)}
+
+/* ---------- concept bar ---------- */
+.cbar{position:fixed;left:0;right:0;bottom:0;z-index:200;height:56px;background:#0B0E11;border-top:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:var(--mono);font-size:12px;color:#8FA3B0;gap:16px}
+.cbar a,.cbar button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B0;background:none;border:1px solid rgba(255,255,255,.16);padding:7px 11px;border-radius:2px;cursor:pointer;transition:.15s;white-space:nowrap}
+.cbar a:hover,.cbar button:hover{color:#fff;border-color:var(--datum-500)}
+.cbar a.on{background:var(--datum-500);color:#04080B;border-color:var(--datum-500);font-weight:500}
+.cbar .grp2{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.cbar .tag{font-size:10px;letter-spacing:.18em;color:var(--amber-500);border:1px solid rgba(255,176,32,.4);padding:5px 9px;border-radius:2px}
+.cbar .nm{color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+@media(max-width:1100px){.svcgrid,.pgrid{grid-template-columns:repeat(2,1fr)}.grp{grid-template-columns:repeat(2,1fr)}.sensor{grid-template-columns:1fr;gap:40px}.fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.wrap{padding:0 20px}.nav ul,.util .contact{display:none}.stats .wrap,.svcgrid,.pgrid,.grp{grid-template-columns:1fr}.cbar .nm{display:none}}
+</style>
+<link rel="stylesheet" href="../assets/polish.css">
+</head>
+<body>
+
+<!-- ===== utility bar: the four-brand switcher ===== -->
+<div class="util"><div class="wrap">
+  <div class="brandtabs">
+    <button class="on">Surveying &amp; Realty</button>
+    <button>Surveying Instruments</button>
+    <button>Drone Vision Pro</button>
+    <button>QuantumLab Geosolutions</button>
+  </div>
+  <div class="contact">SALES <b>+63 917 870 3551</b> · <b>sales@rasasurvey.com</b></div>
+</div></div>
+
+<!-- ===== nav ===== -->
+<nav class="nav"><div class="wrap">
+  <a href="#" class="mark">RASA<span>SURVEYING &amp; REALTY</span></a>
+  <ul>
+    <li><a href="#svc">Services</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#proj">Projects</a></li>
+    <li><a href="#grp">The Group</a></li>
+    <li><a href="#">News</a></li>
+  </ul>
+  <a href="#cta" class="btn btn-a">Request a quote</a>
+</div></nav>
+
+<!-- ===== hero ===== -->
+<header class="hero">
+  <div class="grat"></div>
+  <svg class="cloud" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="tg" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="#0B3A54"/><stop offset="35%" stop-color="#00A9E0"/>
+        <stop offset="65%" stop-color="#4FD8A6"/><stop offset="88%" stop-color="#FFB020"/><stop offset="100%" stop-color="#FF6A3D"/>
+      </linearGradient>
+    </defs>
+    <g id="pc"></g>
+    <g stroke="#00A9E0" stroke-width="1" fill="none" opacity=".28">
+      <path d="M60 470 Q200 400 340 440 T620 390"/><path d="M60 510 Q210 445 350 482 T630 434"/>
+      <path d="M60 550 Q220 492 360 524 T640 478"/><path d="M60 590 Q230 538 370 566 T650 522"/>
+    </g>
+    <line x1="420" y1="0" x2="420" y2="700" stroke="#FFB020" stroke-width="1" opacity=".5" stroke-dasharray="4 8"/>
+  </svg>
+  <div class="veil"></div>
+  <div class="wrap">
+    <div class="eyebrow">Est. 1994 · Nationwide capability</div>
+    <h1>Ground truth for the nation's biggest builds.</h1>
+    <p>Airborne LiDAR, hydrographic survey and terrestrial scanning — delivered to one datum, on a schedule that holds.</p>
+    <div class="cta">
+      <a href="#cta" class="btn btn-a">Request a quote</a>
+      <a href="#tech" class="btn btn-g">See the technology</a>
+    </div>
+  </div>
+  <div class="readout">
+    <span>DATUM <b>PRS92 / PTM Z3</b></span>
+    <span>SENSOR <b>RIEGL miniVUX-1UAV</b></span>
+    <span class="ph">ACCURACY <b>±7 cm</b></span>
+    <span class="ph">AGL <b>120 m</b></span>
+  </div>
+</header>
+
+<!-- ===== stats ===== -->
+<div class="stats"><div class="wrap">
+  <div class="stat"><div class="n">30<u>+ yrs</u></div><div class="l">Continuous operation since 1994</div></div>
+  <div class="stat ph blk"><div class="n">1,240<u>+</u></div><div class="l">Projects delivered nationwide</div></div>
+  <div class="stat ph blk"><div class="n">86<u>k ha</u></div><div class="l">Surveyed by air and ground</div></div>
+  <div class="stat"><div class="n">4</div><div class="l">Companies, one group</div></div>
+</div></div>
+
+<!-- ===== services ===== -->
+<section id="svc"><div class="wrap">
+  <div class="shead">
+    <div class="eyebrow">What we do</div>
+    <h2>Five survey disciplines, one control network.</h2>
+    <p>Every deliverable ties back to a single adjusted datum — so the boundary plan, the bathymetry and the as-built all agree.</p>
+  </div>
+  <div class="svcgrid">
+    <div class="svc"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/><circle cx="8" cy="6" r="2"/><circle cx="16" cy="18" r="2"/></svg>
+      <h3>Land survey</h3><p>Boundary relocation, subdivision, parcellary and titling support with PRC-signed plans.</p><div class="spec">PRS92 · Lot plans · Technical descriptions</div></div>
+    <div class="svc"><svg class="ico" viewBox="0 0 24 24"><path d="M2 20h20M6 20V9l6-5 6 5v11"/><path d="M10 20v-5h4v5"/></svg>
+      <h3>Engineering survey</h3><p>Route alignment, topographic and structural survey for roads, rail, bridges and transmission.</p><div class="spec">Cross-sections · Long profiles · DTM</div></div>
+    <div class="svc"><svg class="ico" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg>
+      <h3>Construction survey</h3><p>Layout, staking, monitoring and as-built verification through the whole build cycle.</p><div class="spec">Setting-out · Deformation · As-built</div></div>
+    <div class="svc"><svg class="ico" viewBox="0 0 24 24"><path d="M2 12s3-6 10-6 10 6 10 6-3 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      <h3>Specialized survey</h3><p>Hydrographic and bathymetric survey of dams, river basins, ports and bridge crossings.</p><div class="spec">Single &amp; multibeam · Tidal reduction</div></div>
+    <div class="svc"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+      <h3>Geomatics engineering</h3><p>GIS build-out, satellite imagery procurement and spatial data management.</p><div class="spec">DigitalGlobe · Supergeo · GIS</div></div>
+    <div class="svc"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="4"/></svg>
+      <h3>UAV LiDAR &amp; scanning</h3><p>Airborne laser scanning and terrestrial HDS for corridor, canopy and asset capture.</p><div class="spec">miniVUX-1UAV · LAS/LAZ · Orthomosaic</div></div>
+  </div>
+</div></section>
+
+<!-- ===== technology / sensor ===== -->
+<section id="tech" class="dark">
+  <div class="grat" style="opacity:.4"></div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="shead">
+      <div class="eyebrow">Technology</div>
+      <h2>The sensor, and what it puts on your desk.</h2>
+      <p>We publish the instrument and the tolerance. If a number can't be defended, it doesn't go in the report.</p>
+    </div>
+    <div class="sensor">
+      <div>
+        <h3 style="font-size:26px;color:#fff;margin-bottom:8px">RIEGL miniVUX-1UAV</h3>
+        <p style="color:var(--ink-200);margin-bottom:26px;max-width:46ch">Waveform-processing airborne laser scanner. Multi-target resolution puts returns under the canopy, not just on top of it.</p>
+        <div class="specsheet">
+          <div class="row"><span>Field of view</span><span>360<em>°</em></span></div>
+          <div class="row"><span>Technology</span><span>Waveform-LiDAR, echo digitization</span></div>
+          <div class="row"><span>Multi-target</span><span>Yes — dense foliage penetration</span></div>
+          <div class="row"><span>Acquisition</span><span>SD card · LAN-TCP/IP stream</span></div>
+          <div class="row"><span>Housing</span><span>Aluminium, low power draw</span></div>
+          <div class="row ph"><span>Deliverables</span><span>LAS/LAZ · DEM · DSM · Ortho</span></div>
+        </div>
+      </div>
+      <div class="sensorviz"><svg viewBox="0 0 480 360" style="width:100%;height:100%"><g id="scan"></g></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== projects ===== -->
+<section id="proj" class="sunken"><div class="wrap">
+  <div class="shead">
+    <div class="eyebrow">Selected projects</div>
+    <h2>Thirty years of the Philippine build record.</h2>
+    <p>Filter by sector. Every entry carries scope, instrument, datum and delivered accuracy.</p>
+  </div>
+  <div class="chips">
+    <span class="chip on">All</span><span class="chip">Road &amp; expressway</span><span class="chip">Bridge</span>
+    <span class="chip">Airport &amp; port</span><span class="chip">Hydropower</span><span class="chip">Transmission line</span>
+    <span class="chip">Pipeline</span><span class="chip">Mining</span><span class="chip">Hydrographic</span><span class="chip">Parcellary</span>
+  </div>
+  <div class="pgrid">
+    <div class="proj"><div class="frame"><img class="stand-in" src="../assets/img/wc-cllex-01.jpg" alt="Central Luzon Link Expressway carriageway"><div class="cap"><div class="s">Road &amp; expressway</div><h4>Central Luzon Link Expressway</h4></div></div><div class="meta"><span>CLLEX</span><span class="ph">Corridor · LiDAR</span></div></div>
+    <div class="proj"><div class="frame"><img class="stand-in" src="../assets/img/wc-bridge-cclex.jpg" alt="Cable-stayed bridge over water at dusk"><div class="cap"><div class="s">Bridge · Marine</div><h4>Bataan–Cavite Interlink Bridge</h4></div></div><div class="meta"><span>BCIB</span><span class="ph">Bathymetric</span></div></div>
+    <div class="proj"><div class="frame"><img class="stand-in" src="../assets/img/wc-dam-watershed.jpg" alt="Aerial view of a reservoir and watershed"><div class="cap"><div class="s">Hydropower</div><h4 class="ph">Reservoir &amp; catchment survey</h4></div></div><div class="meta"><span class="ph">Client TBC</span><span class="ph">TLS · UAV</span></div></div>
+  </div>
+</div></section>
+
+<!-- ===== the group ===== -->
+<section id="grp" class="dark">
+  <div class="grat" style="opacity:.35"></div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="shead">
+      <div class="eyebrow">The RASA Group</div>
+      <h2>Four companies. One datum, one standard, one contact.</h2>
+      <p>Survey services, the instruments to do it yourself, the drone fleet, and the software layer on top.</p>
+    </div>
+    <div class="grp">
+      <div class="gcard"><span class="tag">Services</span><h3>RASA Surveying &amp; Realty</h3><p>The parent firm. Land, engineering, construction and specialized survey since 1994.</p><span class="go">Enter →</span></div>
+      <div class="gcard"><span class="tag">Equipment</span><h3>RASA Surveying Instruments</h3><p>Total stations, GNSS, scanners and accessories. Demo, calibrate, train, support.</p><span class="go">Browse catalogue →</span></div>
+      <div class="gcard"><span class="tag">Aerial</span><h3>Drone Vision Pro</h3><p>UAV platforms and payloads, pilot training and aerial data capture services.</p><span class="go">See the fleet →</span></div>
+      <div class="gcard"><span class="tag">Software</span><h3>QuantumLab Geosolutions</h3><p>GIS, spatial data management and the analytics layer over survey output.</p><span class="go">Explore →</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== partners ===== -->
+<section style="padding:56px 0"><div class="wrap">
+  <div class="mono" style="text-align:center;color:var(--ink-300);letter-spacing:.16em;text-transform:uppercase;margin-bottom:28px">Strategic global partners</div>
+  <div class="plogos"><span class="plogo">DigitalGlobe</span><span class="plogo">Easymap UAV</span><span class="plogo">Supergeo</span><span class="plogo">Hi-Target</span><span class="plogo">RIEGL</span></div>
+</div></section>
+
+<!-- ===== cta ===== -->
+<section id="cta" class="band"><div class="wrap">
+  <div><h2>Tell us about the site.</h2><p>Send the location and the deliverable you need. We'll come back with method, instrument and a fixed schedule.</p></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap"><a href="#" class="btn btn-a">Request a quote</a><a href="#" class="btn btn-g">Talk to an engineer</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div>
+      <div class="mark" style="margin-bottom:16px">RASA<span>SURVEYING &amp; REALTY</span></div>
+      <p style="font-size:14px;max-width:34ch;color:var(--ink-300)">Nationwide-capable integrated surveying since 1994. Raymund Arnold S. Alberto, Geodetic Engineer — PRC 2013 Outstanding Professional.</p>
+    </div>
+    <div><h5>Services</h5><ul><li><a href="#">Land survey</a></li><li><a href="#">Engineering survey</a></li><li><a href="#">Construction survey</a></li><li><a href="#">Specialized survey</a></li><li><a href="#">Geomatics engineering</a></li></ul></div>
+    <div><h5>The Group</h5><ul><li><a href="#">Surveying &amp; Realty</a></li><li><a href="#">Surveying Instruments</a></li><li><a href="#">Drone Vision Pro</a></li><li><a href="#">QuantumLab Geosolutions</a></li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="#">sales@rasasurvey.com</a></li><li><a href="#">+63 917 870 3551</a></li><li><a href="#">(02) 7000 0726</a></li><li class="ph"><a href="#">Head office address</a></li></ul></div>
+  </div>
+  <div class="fbot"><span>© 1994–2026 RASA Surveying and Realty</span><span>Honesty · Integrity · Teamwork · Technology · Quality · Relationship</span></div>
+</div></footer>
+
+<!-- ===== concept bar ===== -->
+<div class="cbar">
+  <div class="grp2"><a href="../index.html">← All concepts</a><span class="nm">01 · Instrument Grade</span></div>
+  <div class="grp2">
+    <a href="01-instrument-grade.html" class="on">01</a><a href="02-national-record.html">02</a><a href="03-bid-book.html">03</a><a href="04-exchange.html">04</a><a href="05-field-dispatch.html">05</a><a href="06-the-standard.html">06</a>
+    <button onclick="document.body.classList.toggle('show-ph')">Highlight placeholders</button>
+    <span class="tag">CONCEPT PROTOTYPE</span>
+  </div>
+</div>
+
+<script>
+// procedural point cloud for hero — terrain-coloured by elevation
+(function(){
+  var g=document.getElementById('pc'),s='';
+  for(var i=0;i<1500;i++){
+    var x=Math.random()*800, t=Math.random();
+    var base=520-Math.sin(x/110)*70-Math.cos(x/47)*34;
+    var y=base-t*t*330+ (Math.random()-0.5)*18;
+    var e=(560-y)/420, r=(Math.random()*1.5+0.5).toFixed(1);
+    var c = e<.25?'#0B3A54':e<.45?'#00A9E0':e<.65?'#4FD8A6':e<.85?'#FFB020':'#FF6A3D';
+    s+='<circle cx="'+x.toFixed(0)+'" cy="'+y.toFixed(0)+'" r="'+r+'" fill="'+c+'" opacity="'+(0.35+e*0.55).toFixed(2)+'"/>';
+  }
+  g.innerHTML=s;
+})();
+// scanner visualisation
+(function(){
+  var g=document.getElementById('scan'),s='<rect width="480" height="360" fill="#070B0F"/>';
+  for(var i=0;i<=480;i+=24) s+='<line x1="'+i+'" y1="0" x2="'+i+'" y2="360" stroke="#111B22" stroke-width="1"/>';
+  for(var j=0;j<=360;j+=24) s+='<line x1="0" y1="'+j+'" x2="480" y2="'+j+'" stroke="#111B22" stroke-width="1"/>';
+  for(var a=-80;a<=80;a+=4){
+    var rad=(a-90)*Math.PI/180, len=250+Math.sin(a/9)*38;
+    var x2=240+Math.cos(rad)*len, y2=70-Math.sin(rad)*len*-1;
+    s+='<line x1="240" y1="60" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#00A9E0" stroke-width=".6" opacity=".18"/>';
+    s+='<circle cx="'+x2.toFixed(1)+'" cy="'+y2.toFixed(1)+'" r="1.6" fill="'+(Math.abs(a)<26?'#FFB020':'#4FD8A6')+'" opacity=".9"/>';
+  }
+  s+='<rect x="222" y="42" width="36" height="24" rx="2" fill="#1A2731" stroke="#00A9E0"/>';
+  s+='<text x="240" y="30" fill="#64798A" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="2" text-anchor="middle">miniVUX-1UAV</text>';
+  s+='<text x="14" y="348" fill="#64798A" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5">FOV 360°  ·  MULTI-TARGET  ·  ECHO DIGITIZATION</text>';
+  g.innerHTML=s;
+})();
+// chips + brand tabs
+document.querySelectorAll('.chip').forEach(function(c){c.onclick=function(){document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});c.classList.add('on')}});
+document.querySelectorAll('.brandtabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.brandtabs button').forEach(function(x){x.classList.remove('on')});b.classList.add('on')}});
+</script>
+<script src="../assets/polish.js"></script>
+</body>
+</html>

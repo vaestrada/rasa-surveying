@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 03 · The Bid Book — RASA</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14181C;--ink-2:#3A423F;--ink-3:#6B746F;--ink-4:#98A09B;
+  --paper:#F7F4ED;--paper-2:#EFEAE0;--paper-3:#DFD8C9;--white:#FFFDF9;
+  --gold:#A8813F;--gold-2:#C9A55F;--ox:#7A2E2E;--ox2:#8C3A2F;
+  --display:'Newsreader',Georgia,serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --max:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:16px;line-height:1.62;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;padding-bottom:56px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 44px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:500;line-height:1.14;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--gold)}
+.hr{height:1px;background:var(--paper-3);border:0;margin:0}
+.hr-d{height:3px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);border-left:0;border-right:0;background:none}
+
+/* masthead */
+.top{background:var(--ink);color:var(--paper)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+.top .grp{display:flex;gap:22px;color:var(--ink-4)}
+.top .grp a{transition:.15s}.top .grp a:hover,.top .grp a.on{color:var(--paper)}
+.top .grp a.on{border-bottom:1px solid var(--gold)}
+
+.mast{background:var(--paper);border-bottom:1px solid var(--ink)}
+.mast .wrap{padding-top:26px;padding-bottom:20px;text-align:center}
+.wm{font-family:var(--display);font-size:52px;font-weight:600;letter-spacing:.14em;line-height:1}
+.wmsub{font-family:var(--mono);font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+.mastline{display:flex;justify-content:center;gap:26px;margin-top:20px;padding-top:16px;border-top:1px solid var(--paper-3);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);flex-wrap:wrap}
+
+.nav{position:sticky;top:0;z-index:60;background:rgba(247,244,237,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--ink)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav ul{display:flex;gap:30px;list-style:none}
+.nav ul a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);padding-bottom:3px;border-bottom:1px solid transparent;transition:.15s}
+.nav ul a:hover{color:var(--ink);border-bottom-color:var(--gold)}
+.nav .sm{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:.1em}
+
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:14px 22px;border:1px solid var(--ink);cursor:pointer;transition:.15s;background:none;color:var(--ink)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn-f{background:var(--ink);color:var(--paper)}.btn-f:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.btn-g{background:var(--gold);border-color:var(--gold);color:var(--ink)}.btn-g:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+/* hero */
+.hero{padding:78px 0 66px}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:end}
+.hero h1{font-size:clamp(38px,4.7vw,64px);font-weight:400;letter-spacing:-.02em;line-height:1.08;margin:16px 0 22px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p{font-size:18.5px;color:var(--ink-2);max-width:48ch;line-height:1.6}
+.dossier{border:1px solid var(--ink);background:var(--white);padding:0}
+.dossier .dh{background:var(--ink);color:var(--paper);padding:13px 20px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;display:flex;justify-content:space-between}
+.dossier .db{padding:22px 20px}
+.dossier .r{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dotted var(--paper-3);font-size:13px}
+.dossier .r:last-of-type{border-bottom:0}
+.dossier .r span:first-child{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.dossier .r span:last-child{font-weight:500}
+.dossier .btn{width:100%;justify-content:center;margin-top:16px}
+
+/* credentials strip */
+.creds{background:var(--ink);color:var(--paper);padding:0}
+.creds .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.cr{padding:30px 26px;border-right:1px solid rgba(247,244,237,.16)}
+.cr:last-child{border-right:0}
+.cr .n{font-family:var(--display);font-size:38px;font-weight:500;line-height:1}
+.cr .n u{text-decoration:none;color:var(--gold);font-size:17px;margin-left:3px}
+.cr .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-top:9px}
+
+section{padding:82px 0}
+.sechead{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:baseline;margin-bottom:14px}
+.sechead h2{font-size:clamp(27px,3.2vw,40px);font-weight:400;letter-spacing:-.018em}
+.secsub{color:var(--ink-2);font-size:17px;max-width:62ch;margin:0 0 44px 0}
+
+/* practice list */
+.prac{border-top:1px solid var(--ink)}
+.pr{display:grid;grid-template-columns:70px 1.15fr 1.5fr auto;gap:28px;padding:26px 0;border-bottom:1px solid var(--paper-3);align-items:baseline;transition:.15s}
+.pr:hover{background:var(--white)}
+.pr h3{font-size:23px;font-weight:500}
+.pr p{font-size:14.5px;color:var(--ink-2)}
+.pr .dl{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+
+/* register */
+.regwrap{border:1px solid var(--ink);background:var(--white)}
+.reghead{background:var(--ink);color:var(--paper);padding:14px 22px;display:flex;justify-content:space-between;align-items:center}
+.reghead .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:12px 18px;border-bottom:1px solid var(--paper-3);font-weight:400;background:var(--paper-2)}
+.tbl td{padding:15px 18px;border-bottom:1px solid var(--paper-2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:var(--paper)}
+.tbl .p{font-family:var(--display);font-size:17px;font-weight:500}
+.tbl .c{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.04em}
+.tbl .a{font-family:var(--mono);font-size:12px;color:var(--gold);font-weight:500;white-space:nowrap}
+.regfoot{padding:14px 22px;background:var(--paper-2);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* instrument register */
+.inst{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--ink);background:var(--white)}
+.iu{padding:28px 26px;border-right:1px solid var(--paper-3);border-bottom:1px solid var(--paper-3)}
+.iu:nth-child(3n){border-right:0}
+.iu:nth-last-child(-n+3){border-bottom:0}
+.iu .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:11px}
+.iu h4{font-size:19px;font-weight:600;margin-bottom:7px}
+.iu p{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+
+/* group */
+.grp4{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink)}
+.g4{padding:32px 26px;border-right:1px solid var(--paper-3);background:var(--white)}
+.g4:last-child{border-right:0}
+.g4 .no{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--gold);margin-bottom:14px}
+.g4 h3{font-size:21px;font-weight:500;margin-bottom:9px;line-height:1.2}
+.g4 p{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.g4 .lk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:18px;display:block;border-bottom:1px solid var(--gold);padding-bottom:3px;width:fit-content}
+
+/* leadership + quote */
+.lead{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.portrait{aspect-ratio:4/5;background:var(--paper-2);border:1px solid var(--ink);position:relative;display:flex;align-items:flex-end;padding:22px}
+.portrait .cap{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+blockquote{font-family:var(--display);font-size:clamp(24px,2.8vw,34px);font-weight:400;font-style:italic;line-height:1.32;letter-spacing:-.012em;max-width:24ch}
+.attr{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:24px}
+
+/* cta */
+.band{background:var(--ink);color:var(--paper);padding:78px 0}
+.band .wrap{display:flex;justify-content:space-between;align-items:center;gap:44px;flex-wrap:wrap}
+.band h2{font-size:38px;font-weight:400;max-width:19ch;color:var(--paper)}
+.band p{color:rgba(247,244,237,.7);margin-top:12px;max-width:44ch}
+.band .btn{border-color:rgba(247,244,237,.4);color:var(--paper)}
+.band .btn:hover{background:var(--paper);color:var(--ink)}
+
+footer{background:var(--paper-2);border-top:1px solid var(--ink);padding:58px 0 32px}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:36px;border-bottom:1px solid var(--paper-3)}
+footer h5{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:15px}
+footer li{list-style:none;margin-bottom:8px;font-size:13.5px;color:var(--ink-2)}
+footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.fb{padding-top:24px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);flex-wrap:wrap;gap:10px}
+
+.ph{position:relative}
+body.show-ph .ph{background:rgba(168,129,63,.26);outline:1px dashed var(--gold);outline-offset:1px}
+
+.cbar{position:fixed;left:0;right:0;bottom:0;z-index:200;height:56px;background:#0B0E11;border-top:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:var(--mono);font-size:12px;color:#8FA3B0;gap:16px}
+.cbar a,.cbar button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B0;background:none;border:1px solid rgba(255,255,255,.16);padding:7px 11px;border-radius:2px;cursor:pointer;transition:.15s;white-space:nowrap}
+.cbar a:hover,.cbar button:hover{color:#fff;border-color:#00A9E0}
+.cbar a.on{background:#00A9E0;color:#04080B;border-color:#00A9E0;font-weight:500}
+.cbar .grp2{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.cbar .tag{font-size:10px;letter-spacing:.18em;color:#FFB020;border:1px solid rgba(255,176,32,.4);padding:5px 9px;border-radius:2px}
+.cbar .nm{color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+@media(max-width:1080px){.hero .wrap,.lead{grid-template-columns:1fr;gap:40px}.inst,.grp4{grid-template-columns:repeat(2,1fr)}.pr{grid-template-columns:50px 1fr;gap:14px}.pr .dl{grid-column:2}.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.wrap{padding:0 20px}.nav ul,.top .grp{display:none}.creds .wrap,.inst,.grp4{grid-template-columns:1fr}.wm{font-size:36px}.cbar .nm{display:none}.tbl .c{display:none}}
+</style>
+<link rel="stylesheet" href="../assets/polish.css">
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <div class="grp">
+    <a href="#" class="on">Surveying &amp; Realty</a><a href="#">Surveying Instruments</a><a href="#">Drone Vision Pro</a><a href="#">QuantumLab Geosolutions</a>
+  </div>
+  <div>PRC · Geodetic Engineering · Est. 1994</div>
+</div></div>
+
+<div class="mast"><div class="wrap">
+  <div class="wm">RASA</div>
+  <div class="wmsub">Surveying and Realty</div>
+  <div class="mastline"><span>Founded 1994</span><span>·</span><span>Nationwide capability</span><span>·</span><span>Land · Engineering · Construction · Hydrographic</span></div>
+</div></div>
+
+<nav class="nav"><div class="wrap">
+  <span class="sm">RASA</span>
+  <ul>
+    <li><a href="#prac">The Practice</a></li><li><a href="#reg">Register of Works</a></li>
+    <li><a href="#inst">Instruments</a></li><li><a href="#grp">The Group</a></li><li><a href="#lead">Leadership</a></li>
+  </ul>
+  <a href="#cta" class="btn btn-g">Capability statement</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <div class="lbl">Prequalification · Capability · Record</div>
+    <h1>The firm consultants call when a number has to <em>hold up</em> in court, or on a bridge deck.</h1>
+    <p>Thirty years of geodetic practice. Signed plans, defensible tolerances, and a register of works you can hand straight to a prequalification committee.</p>
+  </div>
+  <div class="dossier">
+    <div class="dh"><span>Capability Statement</span><span class="ph">Rev. 2026-01</span></div>
+    <div class="db">
+      <div class="r"><span>Practice since</span><span>1994</span></div>
+      <div class="r ph"><span>Works on register</span><span>1,240+</span></div>
+      <div class="r"><span>Datum</span><span>PRS92 / PTM</span></div>
+      <div class="r"><span>Airborne sensor</span><span>RIEGL miniVUX-1UAV</span></div>
+      <div class="r ph"><span>PCAB / accreditation</span><span>To be supplied</span></div>
+      <div class="r"><span>Principal</span><span>R. A. S. Alberto, GE</span></div>
+      <a href="#" class="btn btn-f">Download PDF ↓</a>
+    </div>
+  </div>
+</div></header>
+
+<div class="creds"><div class="wrap">
+  <div class="cr"><div class="n">1994</div><div class="l">Year of establishment</div></div>
+  <div class="cr ph"><div class="n">1,240<u>+</u></div><div class="l">Works on the register</div></div>
+  <div class="cr"><div class="n">2013</div><div class="l">PRC Outstanding Professional</div></div>
+  <div class="cr"><div class="n">4</div><div class="l">Companies under the group</div></div>
+</div></div>
+
+<section id="prac"><div class="wrap">
+  <div class="sechead"><span class="num">01</span><h2>The Practice</h2></div>
+  <p class="secsub">Five disciplines, one adjusted control network. Every deliverable reconciles to the same datum — so the boundary plan, the bathymetry and the as-built agree with each other.</p>
+  <div class="prac">
+    <div class="pr"><span class="num">01.1</span><h3>Land survey</h3><p>Boundary relocation, subdivision, parcellary and titling support. PRC-signed plans and technical descriptions.</p><span class="dl">Lot plans · Tech. descriptions</span></div>
+    <div class="pr"><span class="num">01.2</span><h3>Engineering survey</h3><p>Route alignment, topographic and structural survey for roads, rail, bridges and transmission corridors.</p><span class="dl">Cross-sections · DTM</span></div>
+    <div class="pr"><span class="num">01.3</span><h3>Construction survey</h3><p>Setting-out, staking, deformation monitoring and as-built verification through the build cycle.</p><span class="dl">Setting-out · As-built</span></div>
+    <div class="pr"><span class="num">01.4</span><h3>Specialized survey</h3><p>Hydrographic and bathymetric survey of dams, river basins, ports and bridge crossings.</p><span class="dl">Multibeam · Tidal reduction</span></div>
+    <div class="pr"><span class="num">01.5</span><h3>Geomatics engineering</h3><p>GIS build-out, satellite imagery procurement and long-term spatial data management.</p><span class="dl">GIS · Imagery</span></div>
+  </div>
+</div></section>
+
+<section id="reg" style="background:var(--paper-2);border-top:1px solid var(--paper-3);border-bottom:1px solid var(--paper-3)"><div class="wrap">
+  <div class="sechead"><span class="num">02</span><h2>Register of Works</h2></div>
+  <p class="secsub">The evidence a prequalification committee asks for, in the format they ask for it. Filterable by sector, client type, region and year.</p>
+  <div class="regwrap">
+    <div class="reghead"><span class="t">Register of Works — Extract</span><span class="t ph">Showing 6 of 1,240</span></div>
+    <table class="tbl">
+      <thead><tr><th style="width:34%">Project</th><th style="width:18%">Sector</th><th style="width:20%">Scope</th><th style="width:16%">Instrument</th><th style="width:12%">Year</th></tr></thead>
+      <tbody>
+        <tr><td class="p">Central Luzon Link Expressway<div class="c">CLLEX · Nueva Ecija — Aurora</div></td><td class="c">Expressway</td><td class="c">Corridor topographic, alignment</td><td class="a">UAV LiDAR</td><td class="a ph">2019</td></tr>
+        <tr><td class="p">Bataan–Cavite Interlink Bridge<div class="c">BCIB · Manila Bay crossing</div></td><td class="c">Bridge · Marine</td><td class="c">Hydrographic, bathymetric</td><td class="a">Multibeam</td><td class="a ph">2021</td></tr>
+        <tr class="ph"><td class="p">Reservoir &amp; catchment survey<div class="c">Client to be confirmed</div></td><td class="c">Hydropower</td><td class="c">Topo-bathy, volumetrics</td><td class="a">TLS · UAV</td><td class="a">2020</td></tr>
+        <tr class="ph"><td class="p">Luzon grid transmission corridor<div class="c">Client to be confirmed</div></td><td class="c">Transmission</td><td class="c">Route alignment, ROW</td><td class="a">GNSS · UAV</td><td class="a">2022</td></tr>
+        <tr class="ph"><td class="p">Port &amp; harbour bathymetry<div class="c">Client to be confirmed</div></td><td class="c">Airport &amp; port</td><td class="c">Bathymetric, dredge volumes</td><td class="a">Multibeam</td><td class="a">2023</td></tr>
+        <tr class="ph"><td class="p">Road right-of-way parcellary<div class="c">Client to be confirmed</div></td><td class="c">Parcellary</td><td class="c">Parcellary, lot plans</td><td class="a">Total station</td><td class="a">2024</td></tr>
+      </tbody>
+    </table>
+    <div class="regfoot"><span>▸ Full register available on request</span><span style="color:var(--ox2)">1,234 entries pending client content</span></div>
+  </div>
+</div></section>
+
+<section id="inst"><div class="wrap">
+  <div class="sechead"><span class="num">03</span><h2>Instrument Register</h2></div>
+  <p class="secsub">Tenders ask what you own. Publishing the fleet is a competitive act — most Philippine survey firms cannot answer this page.</p>
+  <div class="inst">
+    <div class="iu"><div class="k">Airborne</div><h4>RIEGL miniVUX-1UAV</h4><p>Waveform-LiDAR, 360° field of view, multi-target resolution through dense foliage. SD and LAN-TCP/IP acquisition.</p></div>
+    <div class="iu"><div class="k">Airborne</div><h4>UAV photogrammetry fleet</h4><p class="ph">Multi-rotor and fixed-wing platforms for orthomosaic, DSM and volumetric capture. Models to be supplied.</p></div>
+    <div class="iu"><div class="k">Terrestrial</div><h4>Terrestrial laser scanning</h4><p>High-definition survey for structures, tunnels, plant and heritage documentation.</p></div>
+    <div class="iu"><div class="k">Terrestrial</div><h4>Robotic total stations</h4><p class="ph">Setting-out, monitoring and control densification. Makes and counts to be supplied.</p></div>
+    <div class="iu"><div class="k">Positioning</div><h4>GNSS / GPS</h4><p>Static and RTK positioning tied to PRS92 control. Base-and-rover and network solutions.</p></div>
+    <div class="iu"><div class="k">Remote sensing</div><h4>Satellite imagery</h4><p>Procurement and processing through DigitalGlobe and Supergeo partnerships.</p></div>
+  </div>
+</div></section>
+
+<section id="grp" style="background:var(--paper-2);border-top:1px solid var(--paper-3)"><div class="wrap">
+  <div class="sechead"><span class="num">04</span><h2>The Group</h2></div>
+  <p class="secsub">One masthead, four companies. A client who needs a survey, the instrument to repeat it, the aircraft to fly it and the software to hold it deals with one organisation.</p>
+  <div class="grp4">
+    <div class="g4"><div class="no">I</div><h3>RASA Surveying &amp; Realty</h3><p>The parent practice. Land, engineering, construction and specialized survey since 1994.</p><span class="lk">The practice</span></div>
+    <div class="g4"><div class="no">II</div><h3>RASA Surveying Instruments</h3><p>Equipment supply, calibration, training and after-sales support for the trade.</p><span class="lk">Catalogue</span></div>
+    <div class="g4"><div class="no">III</div><h3>Drone Vision Pro</h3><p>UAV platforms and payloads, pilot training and contracted aerial capture.</p><span class="lk">The fleet</span></div>
+    <div class="g4"><div class="no">IV</div><h3>QuantumLab Geosolutions</h3><p>GIS, spatial data management and the analytics layer over survey output.</p><span class="lk">Solutions</span></div>
+  </div>
+</div></section>
+
+<section id="lead"><div class="wrap">
+  <div class="sechead"><span class="num">05</span><h2>Leadership</h2></div>
+  <div class="lead">
+    <div class="portrait"><img src="../assets/img/rasa-president.jpg" alt="Raymund Arnold S. Alberto, President and Geodetic Engineer" style="object-position:50% 20%"></div>
+    <div>
+      <blockquote>A survey is a promise that someone will build on. We sign ours.</blockquote>
+      <div class="attr">Raymund Arnold S. Alberto · Geodetic Engineer<br>PRC 2013 Outstanding Professional · President</div>
+      <hr class="hr" style="margin:34px 0">
+      <div class="lbl" style="margin-bottom:14px">Core values</div>
+      <p style="font-size:15px;color:var(--ink-2);max-width:46ch">Honesty · Integrity · People &amp; Teamwork · Technology &amp; Environment · Quality, Safety &amp; Progress · Business Relationship</p>
+    </div>
+  </div>
+</div></section>
+
+<section style="padding:52px 0;background:var(--paper-2);border-top:1px solid var(--paper-3);border-bottom:1px solid var(--paper-3)"><div class="wrap">
+  <div class="lbl" style="text-align:center;margin-bottom:24px">Strategic global partners</div>
+  <div style="display:flex;gap:54px;justify-content:center;flex-wrap:wrap;font-family:var(--display);font-size:19px;color:var(--ink-3)">
+    <span>DigitalGlobe</span><span>Easymap UAV</span><span>Supergeo</span><span>Hi-Target</span><span>RIEGL</span>
+  </div>
+</div></section>
+
+<section id="cta" class="band"><div class="wrap">
+  <div><h2>Request the capability statement.</h2><p>A single PDF with the register, the instrument list, the accreditations and the principal's credentials. Built for prequalification.</p></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap"><a href="#" class="btn btn-g">Download PDF ↓</a><a href="#" class="btn">Talk to an engineer</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div><div style="font-family:var(--display);font-size:28px;font-weight:600;letter-spacing:.12em;margin-bottom:12px">RASA</div>
+    <p style="font-size:13.5px;color:var(--ink-2);max-width:34ch">Nationwide-capable integrated surveying since 1994. Raymund Arnold S. Alberto, Geodetic Engineer — PRC 2013 Outstanding Professional.</p></div>
+    <div><h5>The Practice</h5><ul><li><a href="#">Land survey</a></li><li><a href="#">Engineering survey</a></li><li><a href="#">Construction survey</a></li><li><a href="#">Specialized survey</a></li><li><a href="#">Geomatics engineering</a></li></ul></div>
+    <div><h5>The Group</h5><ul><li><a href="#">Surveying &amp; Realty</a></li><li><a href="#">Surveying Instruments</a></li><li><a href="#">Drone Vision Pro</a></li><li><a href="#">QuantumLab</a></li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="#">sales@rasasurvey.com</a></li><li><a href="#">+63 917 870 3551</a></li><li><a href="#">(02) 7000 0726</a></li></ul></div>
+  </div>
+  <div class="fb"><span>© 1994–2026 RASA Surveying and Realty</span><span>Honesty · Integrity · Teamwork · Technology · Quality · Relationship</span></div>
+</div></footer>
+
+<div class="cbar">
+  <div class="grp2"><a href="../index.html">← All concepts</a><span class="nm">03 · The Bid Book</span></div>
+  <div class="grp2">
+    <a href="01-instrument-grade.html">01</a><a href="02-national-record.html">02</a><a href="03-bid-book.html" class="on">03</a><a href="04-exchange.html">04</a><a href="05-field-dispatch.html">05</a><a href="06-the-standard.html">06</a>
+    <button onclick="document.body.classList.toggle('show-ph')">Highlight placeholders</button>
+    <span class="tag">CONCEPT PROTOTYPE</span>
+  </div>
+</div>
+<script src="../assets/polish.js"></script>
+</body>
+</html>
