@@ -1,0 +1,158 @@
+/* ============================================================
+   RASA concepts — shared motion polish
+   Applied per emilkowalski/skills → emil-design-eng.
+   Loaded AFTER each concept's inline <style> so it wins on
+   equal specificity. Fixes three systemic defects:
+     1. `transition: <time>` shorthand == `transition: all`
+     2. no :active press feedback on pressable elements
+     3. built-in easings are too weak to feel intentional
+   ============================================================ */
+
+:root{
+  --e-out:cubic-bezier(0.23, 1, 0.32, 1);        /* strong ease-out — enter/exit */
+  --e-in-out:cubic-bezier(0.77, 0, 0.175, 1);    /* strong ease-in-out — on-screen movement */
+  --e-hover:cubic-bezier(0.4, 0, 0.2, 1);        /* hover / colour */
+  --d-press:140ms;
+  --d-hover:180ms;
+  --d-card:220ms;
+  --d-enter:340ms;
+}
+
+/* ---------- 1. explicit properties, never `all` ---------- */
+
+.btn, .add, .cart, .qagain, .subform button,
+.chip, .f, .lg, .qo,
+.nav ul a, .rail a, .brandtabs button, .btabs button, .top .grp a, .strip .desks a,
+footer a, .plogo{
+  transition:
+    background-color var(--d-hover) var(--e-hover),
+    border-color     var(--d-hover) var(--e-hover),
+    color            var(--d-hover) var(--e-hover),
+    transform        var(--d-press) var(--e-out);
+}
+
+.svc, .proj, .card, .isle, .xs, .story, .eo, .gcard, .ly, .g4, .dk4, .iu, .sidestory, .pr, .reg .rr, .tbl tbody tr{
+  transition:
+    transform     var(--d-card) var(--e-out),
+    box-shadow    var(--d-card) var(--e-out),
+    border-color  var(--d-card) var(--e-hover),
+    background-color var(--d-hover) var(--e-hover);
+}
+
+.svc::before{ transition: transform var(--d-card) var(--e-out) }
+.svc .ico{ transition: stroke var(--d-hover) var(--e-hover) }
+.pin{ transition: opacity var(--d-hover) var(--e-hover) }
+.tip{ transition: opacity 140ms var(--e-out) }
+.qprog i{ transition: background-color 200ms var(--e-out) }
+
+/* ---------- 2. press feedback on every pressable thing ---------- */
+/* "Buttons must feel responsive." Subtle scale, fast, ease-out.   */
+
+.btn:active,
+.add:active,
+.cart:active,
+.chip:active,
+.f:active,
+.qo:active,
+.subform button:active,
+.qagain:active,
+.brandtabs button:active,
+.btabs button:active{
+  transform: scale(0.97);
+}
+
+/* cards are pressable surfaces too — lighter touch so it reads as
+   a press, not a collapse */
+.svc:active, .proj:active, .card:active, .isle:active,
+.xs:active, .story:active, .eo:active, .gcard:active,
+.ly:active, .g4:active, .dk4:active{
+  transform: scale(0.995);
+}
+
+/* ---------- 3. hover only where hover exists ---------- */
+/* Touch devices fire :hover on tap — a false positive that leaves
+   elements stuck in a hover state after the finger lifts.        */
+
+@media (hover: none), (pointer: coarse){
+  .svc:hover, .proj:hover, .card:hover, .isle:hover, .xs:hover,
+  .story:hover, .eo:hover, .ly:hover, .g4:hover, .dk4:hover{
+    transform:none;
+    box-shadow:none;
+  }
+}
+
+/* ---------- 4. entrance: stagger, never all-at-once ---------- */
+/* Applied by polish.js via IntersectionObserver. Enter is ease-out
+   from a *visible* starting scale — nothing appears from nothing. */
+
+[data-rv]{
+  opacity:0;
+  transform: translateY(10px) scale(0.995);
+  transition:
+    opacity   var(--d-enter) var(--e-out),
+    transform var(--d-enter) var(--e-out);
+  transition-delay: var(--rv-d, 0ms);
+  will-change: opacity, transform;
+}
+[data-rv].rv-in{
+  opacity:1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------- 5. reduced motion ---------- */
+/* Fewer and gentler, not zero: opacity survives, movement doesn't. */
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+  }
+  .btn:active,.add:active,.cart:active,.chip:active,.f:active,.qo:active,
+  .subform button:active,.qagain:active,
+  .svc:active,.proj:active,.card:active,.isle:active,.xs:active,
+  .story:active,.eo:active,.gcard:active,.ly:active,.g4:active,.dk4:active,
+  .svc:hover,.proj:hover,.card:hover,.isle:hover,.xs:hover,
+  .story:hover,.eo:hover,.ly:hover,.g4:hover,.dk4:hover{
+    transform:none !important;
+  }
+  [data-rv]{
+    transform:none;
+    transition: opacity 200ms ease;
+  }
+  .btn,.add,.cart,.chip,.f,.lg,.qo,.svc,.proj,.card,.isle,.xs,.story,.eo,
+  .gcard,.ly,.g4,.dk4,.iu,.sidestory,.pr{
+    transition-property: background-color, border-color, color, opacity;
+    transition-duration: 160ms;
+  }
+}
+
+/* ---------- 6. real imagery in photo frames ---------- */
+/* When a frame holds a real photo, kill the hatch pattern and the
+   shot-note. Frames without one keep behaving as before.          */
+
+.pf > img, .frame > img, .portrait > img, .leadmain .pf > img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block;
+}
+.pf:has(img)::before{ display:none }
+.pf:has(img) .nt{ display:none }
+
+/* Images sourced from Wikimedia rather than RASA carry .stand-in, so
+   the "Highlight placeholders" toggle still tells the truth about
+   which pictures are actually theirs. */
+body.show-ph .pf:has(img.stand-in),
+body.show-ph .frame:has(img.stand-in){ outline:2px dashed #F59E0B; outline-offset:-2px }
+body.show-ph img.stand-in{ filter:saturate(.55) }
+
+/* Photos read better slightly cooled and contrast-lifted — matches the
+   "cool-toned, mildly contrast-boosted" rule in the RASA design system. */
+.pf > img, .frame > img{ filter:saturate(.92) contrast(1.04) }
+
+/* ---------- 7. focus visibility (keyboard users) ---------- */
+:focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:3px;
+  border-radius:2px;
+}
