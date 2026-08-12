@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 04 · The Exchange — RASA</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0F172A;--ink-2:#334155;--ink-3:#64748B;--ink-4:#94A3B8;
+  --line:#E2E8F0;--line-2:#CBD5E1;--sunken:#F5F7FA;--white:#fff;
+  --fire:#E8461E;--fire-2:#C43714;--deep:#123A5E;--deep-2:#1D5686;
+  --lime:#16A34A;--amber:#F59E0B;
+  --display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --max:1360px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:16px;line-height:1.6;color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;padding-bottom:56px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 36px}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.1;letter-spacing:-.025em}
+a{color:inherit;text-decoration:none}
+.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fire)}
+
+/* brand switcher */
+.bswitch{background:var(--ink)}
+.bswitch .wrap{display:flex;justify-content:space-between;align-items:center;height:42px}
+.btabs{display:flex;gap:0}
+.btabs button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;background:none;border:0;color:var(--ink-4);padding:8px 15px;cursor:pointer;transition:.15s;border-bottom:2px solid transparent}
+.btabs button:hover{color:#fff}
+.btabs button.on{color:#fff;background:rgba(255,255,255,.07);border-bottom-color:var(--fire)}
+.bswitch .r{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-4)}
+.bswitch .r b{color:#fff;font-weight:500}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:70;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:30px;height:72px}
+.mark{font-family:var(--display);font-weight:700;font-size:25px;letter-spacing:-.04em;line-height:1;white-space:nowrap}
+.mark i{color:var(--fire);font-style:normal}
+.mark span{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:var(--ink-3);font-weight:400;margin-top:2px}
+.nav ul{display:flex;gap:26px;list-style:none;margin-left:6px}
+.nav ul a{font-size:14px;font-weight:500;color:var(--ink-2)}
+.nav ul a:hover{color:var(--fire)}
+.search{flex:1;max-width:340px;margin-left:auto;position:relative}
+.search input{width:100%;padding:11px 14px 11px 38px;border:1px solid var(--line-2);border-radius:6px;font-family:var(--body);font-size:14px;background:var(--sunken)}
+.search input:focus{outline:2px solid var(--fire);outline-offset:-1px;background:#fff}
+.search svg{position:absolute;left:12px;top:11px;width:16px;height:16px;stroke:var(--ink-3);fill:none;stroke-width:2}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:12px 20px;border-radius:6px;border:1.5px solid transparent;cursor:pointer;transition:.15s;font-family:var(--body)}
+.btn-f{background:var(--fire);color:#fff}.btn-f:hover{background:var(--fire-2)}
+.btn-d{background:var(--deep);color:#fff}.btn-d:hover{background:var(--deep-2)}
+.btn-o{border-color:var(--line-2);color:var(--ink)}.btn-o:hover{border-color:var(--ink);background:var(--sunken)}
+.btn-w{background:#fff;color:var(--ink)}.btn-w:hover{background:var(--sunken)}
+.cart{position:relative;background:var(--ink);color:#fff;border-radius:6px;padding:11px 16px;font-size:13.5px;font-weight:600;white-space:nowrap}
+.cart b{background:var(--fire);border-radius:20px;padding:1px 7px;font-size:11px;margin-left:6px}
+
+/* hero */
+.hero{background:#0F172A;color:#fff;position:relative;overflow:hidden}
+.hero .heroimg{position:absolute;inset:0;z-index:0}
+.hero .heroimg img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.75)}
+.hero .heroveil{position:absolute;inset:0;z-index:1;background:linear-gradient(105deg,rgba(15,23,42,.97) 0%,rgba(15,23,42,.90) 46%,rgba(21,39,68,.72) 100%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:44px 44px}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 460px;gap:56px;padding-top:64px;padding-bottom:64px;align-items:center}
+.hero h1{font-size:clamp(34px,4.2vw,54px);letter-spacing:-.035em;margin:16px 0 18px;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--fire)}
+.hero p{color:#B6C4D6;font-size:17.5px;max-width:44ch;margin-bottom:28px}
+.trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
+.trust b{color:#fff;font-weight:500}
+
+/* QUALIFIER */
+.qual{background:#fff;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.34);overflow:hidden}
+.qh{background:var(--fire);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center}
+.qh .t{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.01em}
+.qh .s{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em}
+.qb{padding:24px 22px 22px}
+.qstep{display:none}.qstep.on{display:block}
+.qq{font-family:var(--display);font-size:19px;font-weight:600;letter-spacing:-.015em;margin-bottom:16px;color:var(--ink)}
+.qopts{display:grid;gap:8px}
+.qo{text-align:left;padding:13px 15px;border:1.5px solid var(--line);border-radius:7px;background:#fff;cursor:pointer;font-family:var(--body);font-size:14.5px;font-weight:500;color:var(--ink-2);transition:.13s;display:flex;justify-content:space-between;align-items:center}
+.qo:hover{border-color:var(--fire);background:#FFF6F3;color:var(--ink)}
+.qo span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-4)}
+.qprog{display:flex;gap:5px;margin-bottom:18px}
+.qprog i{height:3px;flex:1;background:var(--line);border-radius:2px;transition:.2s}
+.qprog i.on{background:var(--fire)}
+.qres{text-align:left}
+.qres .rk{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:8px}
+.qres h4{font-size:21px;margin-bottom:8px;letter-spacing:-.02em}
+.qres p{font-size:14px;color:var(--ink-2);margin-bottom:16px}
+.scorebox{background:var(--sunken);border:1px solid var(--line);border-radius:7px;padding:14px 16px;margin-bottom:16px}
+.scorebox .sr{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);padding:4px 0}
+.scorebox .sr b{color:var(--ink);font-weight:500}
+.scorebox .tot{border-top:1px solid var(--line);margin-top:8px;padding-top:9px}
+.scorebox .tot b{color:var(--lime);font-size:13px}
+.qres .btn{width:100%;justify-content:center;margin-bottom:7px}
+.qagain{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);background:none;border:0;cursor:pointer;padding:6px 0;width:100%}
+.qagain:hover{color:var(--fire)}
+
+/* category rail */
+.rail{border-bottom:1px solid var(--line);background:var(--white);position:sticky;top:72px;z-index:60}
+.rail .wrap{display:flex;gap:2px;overflow-x:auto}
+.rail a{padding:16px 20px;font-size:14px;font-weight:500;color:var(--ink-2);border-bottom:2.5px solid transparent;white-space:nowrap;transition:.15s}
+.rail a:hover{color:var(--fire)}
+.rail a.on{color:var(--fire);border-bottom-color:var(--fire);font-weight:600}
+
+section{padding:76px 0}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:36px;flex-wrap:wrap}
+.shead h2{font-size:clamp(26px,3.2vw,40px)}
+.shead p{color:var(--ink-2);font-size:16.5px;max-width:56ch;margin-top:10px}
+
+/* products */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.f{font-size:13px;font-weight:500;padding:8px 15px;border:1px solid var(--line-2);border-radius:20px;background:#fff;cursor:pointer;color:var(--ink-2);transition:.14s}
+.f:hover{border-color:var(--fire);color:var(--fire)}
+.f.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;transition:.18s;display:flex;flex-direction:column}
+.card:hover{border-color:var(--ink-4);box-shadow:0 10px 32px rgba(15,23,42,.10);transform:translateY(-3px)}
+.card .img{aspect-ratio:4/3;background:var(--sunken);border-bottom:1px solid var(--line);position:relative;display:flex;align-items:center;justify-content:center}
+.card .img svg{width:66%;height:66%}
+.card .bdg{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;padding:4px 8px;border-radius:3px}
+.card .bdg.stk{background:var(--lime)}
+.card .bd{padding:18px;flex:1;display:flex;flex-direction:column}
+.card .br{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:6px}
+.card h3{font-size:16.5px;margin-bottom:9px;letter-spacing:-.02em;line-height:1.25}
+.card .spx{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.card .spx span{font-family:var(--mono);font-size:10px;letter-spacing:.04em;background:var(--sunken);border:1px solid var(--line);color:var(--ink-3);padding:3px 7px;border-radius:3px}
+.card .ft{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:13px;border-top:1px solid var(--line)}
+.card .pr{font-family:var(--display);font-size:15px;font-weight:700}
+.card .pr small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-4);font-weight:400;text-transform:uppercase}
+.card .add{font-size:12.5px;font-weight:600;padding:9px 13px;border-radius:5px;background:var(--ink);color:#fff;border:0;cursor:pointer;transition:.14s;font-family:var(--body);white-space:nowrap}
+.card .add:hover{background:var(--fire)}
+
+/* how it works */
+.flow{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.flow::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:44px 44px}
+.flow .wrap{position:relative;z-index:2}
+.flow h2{color:#fff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:16px}
+.st{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:26px 22px;position:relative}
+.st .n{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--fire);margin-bottom:14px}
+.st h4{font-size:17.5px;color:#fff;margin-bottom:9px;letter-spacing:-.02em}
+.st p{font-size:13.5px;color:#B6C4D6;line-height:1.55}
+.st.hl{background:rgba(232,70,30,.13);border-color:var(--fire)}
+
+/* services cross-sell */
+.xsell{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.xs{border:1px solid var(--line);border-radius:9px;padding:28px 26px;background:#fff;transition:.18s}
+.xs:hover{border-color:var(--deep);transform:translateY(-2px);box-shadow:0 8px 26px rgba(15,23,42,.08)}
+.xs .k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--deep-2);margin-bottom:11px}
+.xs h3{font-size:20px;margin-bottom:9px}
+.xs p{font-size:14px;color:var(--ink-2)}
+
+.band{background:var(--fire);color:#fff;padding:72px 0}
+.band .wrap{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
+.band h2{font-size:36px;color:#fff;max-width:20ch}
+.band p{color:rgba(255,255,255,.86);margin-top:10px;max-width:44ch}
+
+footer{background:var(--ink);color:var(--ink-4);padding:64px 0 32px}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:38px;border-bottom:1px solid rgba(255,255,255,.12)}
+footer h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+footer li{list-style:none;margin-bottom:8px;font-size:13.5px}
+footer a:hover{color:var(--fire)}
+.fb{padding-top:26px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;flex-wrap:wrap;gap:10px}
+
+.ph{position:relative}
+body.show-ph .ph{background:rgba(245,158,11,.30);outline:1px dashed var(--amber);outline-offset:1px;border-radius:3px}
+
+.cbar{position:fixed;left:0;right:0;bottom:0;z-index:200;height:56px;background:#0B0E11;border-top:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:var(--mono);font-size:12px;color:#8FA3B0;gap:16px}
+.cbar a,.cbar button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8FA3B0;background:none;border:1px solid rgba(255,255,255,.16);padding:7px 11px;border-radius:2px;cursor:pointer;transition:.15s;white-space:nowrap}
+.cbar a:hover,.cbar button:hover{color:#fff;border-color:#00A9E0}
+.cbar a.on{background:#00A9E0;color:#04080B;border-color:#00A9E0;font-weight:500}
+.cbar .grp2{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.cbar .tag{font-size:10px;letter-spacing:.18em;color:#FFB020;border:1px solid rgba(255,176,32,.4);padding:5px 9px;border-radius:2px}
+.cbar .nm{color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+@media(max-width:1180px){.pgrid{grid-template-columns:repeat(3,1fr)}.hero .wrap{grid-template-columns:1fr;gap:36px}.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.pgrid,.xsell{grid-template-columns:repeat(2,1fr)}.nav ul,.search{display:none}.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.wrap{padding:0 18px}.pgrid,.xsell,.steps{grid-template-columns:1fr}.cbar .nm{display:none}}
+</style>
+<link rel="stylesheet" href="../assets/polish.css">
+</head>
+<body>
+
+<div class="bswitch"><div class="wrap">
+  <div class="btabs">
+    <button>Surveying &amp; Realty</button><button class="on">Surveying Instruments</button><button>Drone Vision Pro</button><button>QuantumLab</button>
+  </div>
+  <div class="r">DEMO UNITS AVAILABLE · <b>+63 917 870 3551</b></div>
+</div></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="#" class="mark" style="display:flex;align-items:center;gap:11px"><img src="../assets/img/rasa-logo.png" alt="RASA" style="height:40px;width:auto"><span style="display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;color:var(--ink-3);font-weight:400;border-left:1px solid var(--line);padding-left:11px;line-height:1.5">SURVEYING<br>INSTRUMENTS</span></a>
+  <ul><li><a href="#cat">Catalogue</a></li><li><a href="#flow">How we quote</a></li><li><a href="#svc">Survey services</a></li><li><a href="#">Support</a></li></ul>
+  <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input placeholder="Search GNSS, total station, LiDAR…"></div>
+  <a href="#" class="cart">Quote list <b id="cn">0</b></a>
+</div></nav>
+
+<header class="hero">
+  <div class="heroimg"><img src="../assets/img/rasa-topographicsystems.jpg" alt="RASA Scan&amp;Go mobile mapping system"></div>
+  <div class="heroveil"></div>
+  <div class="wrap">
+  <div>
+    <div class="lbl">Four companies · One quote desk</div>
+    <h1>Survey gear, drones, and the crew who <em>actually use them</em>.</h1>
+    <p>We sell the instrument, calibrate it, train your team on it — and if you'd rather we just did the survey, we do that too. Same building since 1994.</p>
+    <div style="display:flex;gap:11px;flex-wrap:wrap">
+      <a href="#cat" class="btn btn-f">Browse the catalogue</a>
+      <a href="#svc" class="btn btn-w">Contract a survey instead</a>
+    </div>
+    <div class="trust">
+      <span>AUTHORISED <b>Hi-Target · Easymap UAV</b></span>
+      <span>IMAGERY <b>DigitalGlobe · Supergeo</b></span>
+      <span>SINCE <b>1994</b></span>
+    </div>
+  </div>
+
+  <!-- ===== THE QUALIFIER — this is the pitch ===== -->
+  <div class="qual" id="qual">
+    <div class="qh"><span class="t">What do you actually need?</span><span class="s">60 SEC</span></div>
+    <div class="qb">
+      <div class="qprog"><i class="on"></i><i></i><i></i></div>
+
+      <div class="qstep on" data-s="0">
+        <div class="qq">What's the job?</div>
+        <div class="qopts">
+          <button class="qo" data-v="boundary" data-t="Boundary / titling">Boundary or titling <span>LOT PLAN</span></button>
+          <button class="qo" data-v="construction" data-t="Construction layout">Construction layout <span>SETTING-OUT</span></button>
+          <button class="qo" data-v="mapping" data-t="Topographic mapping">Topographic mapping <span>DTM · ORTHO</span></button>
+          <button class="qo" data-v="aerial" data-t="Aerial / LiDAR capture">Aerial or LiDAR capture <span>UAV</span></button>
+        </div>
+      </div>
+
+      <div class="qstep" data-s="1">
+        <div class="qq">What accuracy has to hold?</div>
+        <div class="qopts">
+          <button class="qo" data-v="mm" data-t="mm-level">Millimetre — structural, monitoring <span>TLS</span></button>
+          <button class="qo" data-v="cm" data-t="cm-level RTK">Centimetre — RTK, most site work <span>GNSS</span></button>
+          <button class="qo" data-v="sub" data-t="sub-metre">Sub-metre — planning, recon <span>GIS</span></button>
+          <button class="qo" data-v="unsure" data-t="not sure yet">Not sure yet <span>ADVISE ME</span></button>
+        </div>
+      </div>
+
+      <div class="qstep" data-s="2">
+        <div class="qq">Buying, renting, or hiring us?</div>
+        <div class="qopts">
+          <button class="qo" data-v="buy" data-t="Buying equipment">Buying equipment <span>SALES</span></button>
+          <button class="qo" data-v="rent" data-t="Renting">Renting for a project <span>RENTAL</span></button>
+          <button class="qo" data-v="service" data-t="Contract the survey">Contract the whole survey <span>SERVICES</span></button>
+          <button class="qo" data-v="research" data-t="Researching">Just researching for now <span>NURTURE</span></button>
+        </div>
+      </div>
+
+      <div class="qstep qres" data-s="3">
+        <div class="rk">Recommendation</div>
+        <h4 id="rTitle">—</h4>
+        <p id="rBody">—</p>
+        <div class="scorebox">
+          <div class="sr"><span>Job type</span><b id="s1">—</b></div>
+          <div class="sr"><span>Accuracy class</span><b id="s2">—</b></div>
+          <div class="sr"><span>Intent</span><b id="s3">—</b></div>
+          <div class="sr tot"><span>ROUTED TO</span><b id="s4">—</b></div>
+        </div>
+        <a href="#" class="btn btn-f">Get my quote</a>
+        <button class="qagain" onclick="qReset()">↺ Start over</button>
+      </div>
+    </div>
+  </div>
+</div></header>
+
+<div class="rail"><div class="wrap">
+  <a href="#cat" class="on">All equipment</a><a href="#cat">GNSS / RTK</a><a href="#cat">Total stations</a>
+  <a href="#cat">Laser scanners</a><a href="#cat">Drones &amp; payloads</a><a href="#cat">Accessories</a><a href="#cat">Software</a>
+</div></div>
+
+<section id="cat"><div class="wrap">
+  <div class="shead">
+    <div><div class="lbl">Catalogue</div><h2>Every instrument, with the spec that matters.</h2>
+    <p>Prices shown on request — but the specification, the accuracy class and the stock position are public. That is the difference between a catalogue and a Facebook album.</p></div>
+    <a href="#" class="btn btn-o">Download full price list ↓</a>
+  </div>
+  <div class="filters">
+    <span class="f on">All</span><span class="f">GNSS / RTK</span><span class="f">Total stations</span><span class="f">Laser scanners</span>
+    <span class="f">Drones</span><span class="f">LiDAR payloads</span><span class="f">In stock</span><span class="f">Demo available</span>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+</div></section>
+
+<!-- ===== the lead-routing pitch ===== -->
+<section id="flow" class="flow"><div class="wrap">
+  <div class="shead"><div><div class="lbl">How we quote</div><h2>The enquiry that doesn't go cold.</h2>
+  <p style="color:#B6C4D6">Right now an enquiry lands on Facebook Messenger and sits there. Nobody knows if it's a government engineer with a budget or a student doing a thesis. This is the fix.</p></div></div>
+  <div class="steps">
+    <div class="st"><div class="n">STEP 01</div><h4>They self-qualify</h4><p>Three questions on the way in. Job type, accuracy class, buying intent — answered before anyone on your team spends a minute.</p></div>
+    <div class="st hl"><div class="n">STEP 02</div><h4>The lead is scored</h4><p>Government topo job needing cm-accuracy and buying now scores higher than an unsure researcher. Both get a reply. Only one gets a call today.</p></div>
+    <div class="st"><div class="n">STEP 03</div><h4>Routed to the right desk</h4><p>Equipment goes to Instruments. A whole survey goes to Services. A drone job goes to Drone Vision Pro. No more forwarding screenshots.</p></div>
+    <div class="st"><div class="n">STEP 04</div><h4>Nothing goes cold</h4><p>Every enquiry sits in one list with an owner and an age. The follow-up problem becomes a visible number instead of a feeling.</p></div>
+  </div>
+</div></section>
+
+<section id="svc"><div class="wrap">
+  <div class="shead"><div><div class="lbl">Or don't buy anything</div><h2>Hire the crew that wrote the spec.</h2>
+  <p>Most Philippine dealers only sell. We run a 30-year survey practice with the same instruments — so the advice is field-tested, not brochure-deep.</p></div></div>
+  <div class="xsell">
+    <div class="xs"><div class="k">Services</div><h3>Contract the survey</h3><p>Land, engineering, construction, hydrographic and parcellary survey nationwide. Signed plans, defensible tolerances.</p></div>
+    <div class="xs"><div class="k">Aerial</div><h3>Book the drone</h3><p>UAV LiDAR and photogrammetry with the RIEGL miniVUX-1UAV. Corridor, canopy and volumetric capture.</p></div>
+    <div class="xs"><div class="k">Support</div><h3>Calibration &amp; training</h3><p>Instrument calibration, operator training and after-sales support — including for gear you didn't buy from us.</p></div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <div><h2>Tell us the job. We'll tell you the instrument.</h2><p>Or quote the whole survey. Reply within one business day, from a person who has been on site.</p></div>
+  <div style="display:flex;gap:11px;flex-wrap:wrap"><a href="#qual" class="btn btn-w">Start the 60-second check</a><a href="#" class="btn" style="border-color:rgba(255,255,255,.5);color:#fff">Talk to an engineer</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div><div class="mark" style="color:#fff;margin-bottom:12px">RASA<i>.</i><span style="color:var(--ink-4)">THE GROUP</span></div>
+    <p style="font-size:13.5px;max-width:34ch">Survey services, instruments, drones and geospatial software. One group, one quote desk, since 1994.</p></div>
+    <div><h5>Catalogue</h5><ul><li><a href="#">GNSS / RTK</a></li><li><a href="#">Total stations</a></li><li><a href="#">Laser scanners</a></li><li><a href="#">Drones &amp; payloads</a></li><li><a href="#">Accessories</a></li></ul></div>
+    <div><h5>The Group</h5><ul><li><a href="#">Surveying &amp; Realty</a></li><li><a href="#">Surveying Instruments</a></li><li><a href="#">Drone Vision Pro</a></li><li><a href="#">QuantumLab</a></li></ul></div>
+    <div><h5>Contact</h5><ul><li><a href="#">sales@rasasurvey.com</a></li><li><a href="#">+63 917 870 3551</a></li><li><a href="#">(02) 7000 0726</a></li></ul></div>
+  </div>
+  <div class="fb"><span>© 1994–2026 RASA Group</span><span>Prices and stock shown are illustrative</span></div>
+</div></footer>
+
+<div class="cbar">
+  <div class="grp2"><a href="../index.html">← All concepts</a><span class="nm">04 · The Exchange</span></div>
+  <div class="grp2">
+    <a href="01-instrument-grade.html">01</a><a href="02-national-record.html">02</a><a href="03-bid-book.html">03</a><a href="04-exchange.html" class="on">04</a><a href="05-field-dispatch.html">05</a><a href="06-the-standard.html">06</a>
+    <button onclick="document.body.classList.toggle('show-ph')">Highlight placeholders</button>
+    <span class="tag">CONCEPT PROTOTYPE</span>
+  </div>
+</div>
+
+<script>
+/* ---------- product catalogue ---------- */
+var PRODUCTS=[
+ {br:"RIEGL",n:"miniVUX-1UAV airborne laser scanner",sp:["360° FOV","Waveform","Multi-target"],bd:"FLAGSHIP",stk:0,ic:"lidar"},
+ {br:"Hi-Target",n:"V200 GNSS RTK receiver",sp:["RTK","cm-level","IMU tilt"],bd:"IN STOCK",stk:1,ic:"gnss"},
+ {br:"Hi-Target",n:"ZTS-360R robotic total station",sp:["Robotic","2″ angle","Reflectorless"],bd:"DEMO UNIT",stk:0,ic:"ts"},
+ {br:"Hi-Target",n:"iRTK5 GNSS rover",sp:["RTK","Base & rover","Long range"],bd:"IN STOCK",stk:1,ic:"gnss"},
+ {br:"Easymap UAV",n:"Fixed-wing mapping platform",sp:["Photogrammetry","Long endurance"],bd:"ORDER",stk:0,ic:"drone"},
+ {br:"DJI Enterprise",n:"Matrice 350 RTK",sp:["RTK","IP55","55 min"],bd:"IN STOCK",stk:1,ic:"drone",ph:1},
+ {br:"DJI Enterprise",n:"Zenmuse L2 LiDAR payload",sp:["LiDAR","5 returns","Live point cloud"],bd:"DEMO UNIT",stk:0,ic:"lidar",ph:1},
+ {br:"Terrestrial",n:"High-definition laser scanner",sp:["mm-level","Full dome","HDS"],bd:"ENQUIRE",stk:0,ic:"scan",ph:1}
+];
+var ICONS={
+ gnss:'<svg viewBox="0 0 100 100" fill="none" stroke="#64748B" stroke-width="2.2"><circle cx="50" cy="30" r="13"/><path d="M50 43v34M32 84h36M38 22a17 17 0 0122 0M28 14a28 28 0 0144 0"/></svg>',
+ ts:'<svg viewBox="0 0 100 100" fill="none" stroke="#64748B" stroke-width="2.2"><rect x="34" y="24" width="32" height="24" rx="3"/><path d="M50 48v18M32 88l18-22 18 22M24 88h52M42 36h16"/></svg>',
+ lidar:'<svg viewBox="0 0 100 100" fill="none" stroke="#64748B" stroke-width="2.2"><rect x="36" y="18" width="28" height="20" rx="3"/><path d="M50 38l-26 46M50 38l26 46M50 38v46M50 38l-14 46M50 38l14 46" opacity=".55"/><circle cx="50" cy="28" r="4" fill="#E8461E" stroke="none"/></svg>',
+ drone:'<svg viewBox="0 0 100 100" fill="none" stroke="#64748B" stroke-width="2.2"><rect x="40" y="42" width="20" height="16" rx="3"/><path d="M40 46L22 32M60 46l18-14M40 54L22 68M60 54l18 14"/><ellipse cx="20" cy="30" rx="11" ry="3.5"/><ellipse cx="80" cy="30" rx="11" ry="3.5"/><ellipse cx="20" cy="70" rx="11" ry="3.5"/><ellipse cx="80" cy="70" rx="11" ry="3.5"/></svg>',
+ scan:'<svg viewBox="0 0 100 100" fill="none" stroke="#64748B" stroke-width="2.2"><circle cx="50" cy="34" r="12"/><path d="M50 46v22M34 84h32M30 34a20 20 0 0140 0" stroke-dasharray="4 4"/><path d="M38 88h24"/></svg>'
+};
+(function(){
+  var h='';
+  PRODUCTS.forEach(function(p,i){
+    h+='<div class="card'+(p.ph?' ph':'')+'"><div class="img"><span class="bdg'+(p.stk?' stk':'')+'">'+p.bd+'</span>'+ICONS[p.ic]+'</div>'+
+       '<div class="bd"><div class="br">'+p.br+'</div><h3>'+p.n+'</h3><div class="spx">'+
+       p.sp.map(function(s){return '<span>'+s+'</span>'}).join('')+'</div>'+
+       '<div class="ft"><div class="pr">On request<small>Price list ↓</small></div><button class="add" data-i="'+i+'">+ Quote</button></div></div></div>';
+  });
+  document.getElementById('pgrid').innerHTML=h;
+  var n=0;
+  document.querySelectorAll('.add').forEach(function(b){b.onclick=function(){n++;document.getElementById('cn').textContent=n;b.textContent='✓ Added';b.style.background='#16A34A';setTimeout(function(){b.textContent='+ Quote';b.style.background=''},1400)}});
+})();
+document.querySelectorAll('.f').forEach(function(f){f.onclick=function(){document.querySelectorAll('.f').forEach(function(x){x.classList.remove('on')});f.classList.add('on')}});
+document.querySelectorAll('.btabs button').forEach(function(b){b.onclick=function(){document.querySelectorAll('.btabs button').forEach(function(x){x.classList.remove('on')});b.classList.add('on')}});
+document.querySelectorAll('.rail a').forEach(function(a){a.onclick=function(){document.querySelectorAll('.rail a').forEach(function(x){x.classList.remove('on')});a.classList.add('on')}});
+
+/* ---------- the qualifier ---------- */
+var qStep=0,qAns=[];
+function qShow(n){document.querySelectorAll('.qstep').forEach(function(s){s.classList.toggle('on',+s.dataset.s===n)});
+  document.querySelectorAll('.qprog i').forEach(function(i,ix){i.classList.toggle('on',ix<=Math.min(n,2))})}
+function qReset(){qStep=0;qAns=[];qShow(0)}
+var REC={
+ boundary:{mm:["Robotic total station + GNSS base","Boundary work needs repeatable control. A robotic total station paired with a GNSS base gives you closure you can defend on a lot plan."],
+           cm:["GNSS RTK rover","For most boundary relocation and subdivision, a cm-class RTK rover tied to PRS92 control is the working tool."],
+           sub:["Contract the survey","Sub-metre won't hold for titling. Let our licensed geodetic engineers run this one."],
+           unsure:["Talk to an engineer","Boundary work has legal consequences. Fifteen minutes with a geodetic engineer will save a rejected plan."]},
+ construction:{mm:["Robotic total station","Setting-out and deformation monitoring at mm-class. Robotic keeps one operator on the pole."],
+           cm:["GNSS RTK + total station","Bulk earthworks on RTK, structural setting-out on the total station. Most sites need both."],
+           sub:["GNSS RTK rover","Sub-metre is under-specified for layout — step up to RTK before you stake anything."],
+           unsure:["Talk to an engineer","Tell us the structure and tolerance and we'll spec the pair."]},
+ mapping:{mm:["Terrestrial laser scanner","mm-class mapping means HDS. Full-dome scan, registered point cloud, deliverables in LAS/LAZ."],
+           cm:["UAV photogrammetry + GNSS control","Drone capture over ground control gives cm-class ortho and DTM at a fraction of ground-crew time."],
+           sub:["Satellite imagery + GIS","At sub-metre, imagery through DigitalGlobe and a GIS build-out is faster and cheaper than flying."],
+           unsure:["Contract the survey","Send us the extent and the deliverable — we'll pick the sensor."]},
+ aerial:{mm:["Terrestrial scanning instead","mm-class from the air is not realistic. Ground-based HDS is the right tool for this tolerance."],
+           cm:["RIEGL miniVUX-1UAV LiDAR","Waveform LiDAR with multi-target returns — the only way to get ground under canopy at cm-class."],
+           sub:["UAV photogrammetry","Standard drone photogrammetry will meet sub-metre comfortably and cost far less than LiDAR."],
+           unsure:["Book a demo flight","We'll fly a sample block and show you what each sensor actually returns."]}
+};
+var ROUTE={buy:["RASA Surveying Instruments","HIGH"],rent:["RASA Surveying Instruments · Rentals","HIGH"],
+ service:["RASA Surveying &amp; Realty · Services","HIGH"],research:["Nurture list · monthly technical email","LOW"]};
+document.querySelectorAll('.qo').forEach(function(o){
+  o.onclick=function(){
+    qAns[qStep]={v:o.dataset.v,t:o.dataset.t};
+    qStep++;
+    if(qStep<3){qShow(qStep);return}
+    var r=(REC[qAns[0].v]&&REC[qAns[0].v][qAns[1].v])||["Talk to an engineer","We'll spec this one with you directly."];
+    var rt=ROUTE[qAns[2].v];
+    if(qAns[2].v==='service'){r=["Contract the survey","We run the crew, the instrument and the datum. You get signed deliverables, not a shopping list."]}
+    document.getElementById('rTitle').innerHTML=r[0];
+    document.getElementById('rBody').textContent=r[1];
+    document.getElementById('s1').textContent=qAns[0].t;
+    document.getElementById('s2').textContent=qAns[1].t;
+    document.getElementById('s3').textContent=qAns[2].t;
+    document.getElementById('s4').innerHTML=rt[0]+' · <span style="color:'+(rt[1]==='HIGH'?'#16A34A':'#94A3B8')+'">'+rt[1]+' PRIORITY</span>';
+    qShow(3);
+  };
+});
+</script>
+<script src="../assets/polish.js"></script>
+</body>
+</html>
