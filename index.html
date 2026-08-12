@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RASA × VibeCodersPH — Six Design Directions</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0E11;--bg-2:#12171C;--bg-3:#1A2128;--line:rgba(255,255,255,.13);--line-2:rgba(255,255,255,.24);
+  --tx:#F2F5F7;--tx-2:#A8B6C2;--tx-3:#6F7F8C;
+  --c1:#00A9E0;--c2:#4A8A6F;--c3:#A8813F;--c4:#E8461E;--c5:#FF5A1F;
+  --ok:#4ADE80;--warn:#FBBF24;
+  --b:'Inter',system-ui,sans-serif;--m:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --e-out:cubic-bezier(0.23,1,0.32,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--b);background:var(--bg);color:var(--tx);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+h1,h2,h3,h4{font-weight:700;letter-spacing:-.028em;line-height:1.1}
+a{color:inherit;text-decoration:none}
+.m{font-family:var(--m)}
+.kick{font-family:var(--m);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--tx-3)}
+
+/* head */
+.top{border-bottom:1px solid var(--line);background:rgba(11,14,17,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:50}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.top .l{font-weight:700;font-size:15px;letter-spacing:-.02em}
+.top .l span{color:var(--tx-3);font-weight:400}
+.top .r{font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-3)}
+
+.hero{padding:78px 0 56px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(34px,5vw,58px);margin:18px 0 22px;max-width:19ch}
+.hero p{font-size:19px;color:var(--tx-2);max-width:60ch}
+.meta{display:flex;gap:34px;flex-wrap:wrap;margin-top:34px;padding-top:26px;border-top:1px solid var(--line);font-family:var(--m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3)}
+.meta b{color:var(--tx);font-weight:500;display:block;margin-top:5px;letter-spacing:.06em}
+
+/* finding */
+.finding{background:var(--bg-2);border-bottom:1px solid var(--line);padding:56px 0}
+.fbox{border-left:3px solid var(--warn);padding:4px 0 4px 26px}
+.fbox h2{font-size:27px;margin-bottom:14px}
+.fbox p{color:var(--tx-2);font-size:17px;max-width:74ch}
+.fbox p+p{margin-top:12px}
+.fbox em{color:var(--tx);font-style:normal;font-weight:500}
+
+section{padding:72px 0}
+.shead{margin-bottom:38px;max-width:70ch}
+.shead h2{font-size:clamp(25px,3.2vw,36px);margin:14px 0 13px}
+.shead p{color:var(--tx-2);font-size:17px}
+
+/* how to read */
+.axes{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ax{border:1px solid var(--line);border-radius:8px;padding:26px 24px;background:var(--bg-2)}
+.ax .n{font-family:var(--m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--warn);margin-bottom:12px}
+.ax h3{font-size:20px;margin-bottom:9px}
+.ax p{font-size:14.5px;color:var(--tx-2)}
+
+/* concept cards */
+.cards{display:flex;flex-direction:column;gap:20px}
+.c{border:1px solid var(--line);border-radius:10px;background:var(--bg-2);overflow:hidden;transition:border-color 220ms var(--e-out),transform 220ms var(--e-out)}
+.c:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.cgrid{display:grid;grid-template-columns:76px 1.15fr 1fr auto;gap:26px;padding:28px 28px;align-items:start}
+.cno{font-family:var(--m);font-size:34px;font-weight:500;line-height:1;color:var(--tx-3)}
+.cno i{display:block;width:36px;height:4px;border-radius:2px;margin-top:12px}
+.c h3{font-size:24px;margin-bottom:8px}
+.c .bet{font-size:15px;color:var(--tx-2);margin-bottom:14px}
+.c .sig{font-family:var(--m);font-size:11px;letter-spacing:.08em;color:var(--tx-3);text-transform:uppercase}
+.spec{display:grid;gap:9px}
+.sp{display:grid;grid-template-columns:88px 1fr;gap:12px;font-size:13.5px;align-items:baseline}
+.sp span{font-family:var(--m);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-3)}
+.sp b{font-weight:500;color:var(--tx-2)}
+.cgo{display:flex;flex-direction:column;gap:9px;align-items:stretch;min-width:150px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:12px 18px;border-radius:5px;border:1px solid var(--line-2);cursor:pointer;color:var(--tx);background:none;transition:background-color 180ms var(--e-out),border-color 180ms var(--e-out),color 180ms var(--e-out),transform 140ms var(--e-out);white-space:nowrap}
+.btn:hover{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.btn-p:hover{background:var(--c1);border-color:var(--c1);color:#04080B}
+.pal{display:flex;gap:4px;margin-top:4px}
+.pal i{width:100%;height:22px;border-radius:3px;display:block}
+.fixes{border-top:1px solid var(--line);padding:14px 28px;font-size:13.5px;color:var(--tx-2);background:rgba(255,255,255,.02)}
+.fixes b{color:var(--ok);font-family:var(--m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-right:10px}
+
+/* decision */
+.dec{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.q{border:1px solid var(--line);border-radius:8px;padding:24px;background:var(--bg);margin-bottom:14px}
+.q .qn{font-family:var(--m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--c1);margin-bottom:10px}
+.q h3{font-size:19px;margin-bottom:8px;letter-spacing:-.02em}
+.q p{font-size:14.5px;color:var(--tx-2)}
+.bad{color:var(--tx-3);font-style:italic}
+
+/* needs */
+.needs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.nd{border:1px solid var(--line);border-radius:8px;padding:24px 22px;background:var(--bg-2)}
+.nd h4{font-size:16.5px;margin-bottom:11px}
+.nd ul{list-style:none;padding:0}
+.nd li{font-size:13.5px;color:var(--tx-2);padding:6px 0;border-bottom:1px solid var(--line);display:flex;gap:9px}
+.nd li:last-child{border-bottom:0}
+.nd li::before{content:"▸";color:var(--warn);flex-shrink:0}
+.nd .pri{font-family:var(--m);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:3px;display:inline-block;margin-bottom:12px}
+.p1{background:rgba(232,70,30,.18);color:#FF8A63}
+.p2{background:rgba(251,191,36,.16);color:var(--warn)}
+.p3{background:rgba(74,222,128,.14);color:var(--ok)}
+
+.note{border:1px solid var(--line);border-left:3px solid var(--c1);border-radius:0 8px 8px 0;padding:22px 26px;background:var(--bg-2);margin-top:26px}
+.note p{color:var(--tx-2);font-size:15px;max-width:76ch}
+.note strong{color:var(--tx)}
+
+footer{border-top:1px solid var(--line);padding:44px 0;font-family:var(--m);font-size:11px;letter-spacing:.1em;color:var(--tx-3);text-transform:uppercase}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media(max-width:980px){.cgrid{grid-template-columns:56px 1fr;gap:18px}.spec,.cgo{grid-column:2}.axes,.needs{grid-template-columns:1fr}}
+@media(max-width:620px){.wrap{padding:0 18px}.cgrid{grid-template-columns:1fr}.spec,.cgo{grid-column:1}}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <div class="l">RASA × VibeCodersPH <span>· Concept Review</span></div>
+  <div class="r">6 directions · 08 Aug 2026</div>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div class="kick">Website revamp · Design direction</div>
+  <h1>Six directions. One decision.</h1>
+  <p>These are not six versions of the same website. Each one is a different bet about what the site is <em>for</em> — who it serves, and which part of the business it grows. Pick the bet first; the styling follows.</p>
+  <div class="meta">
+    <div>Client<b>RASA Group · est. 1994</b></div>
+    <div>Scope<b>One site · four companies</b></div>
+    <div>Companies<b>Realty · Instruments · Drone Vision Pro · QuantumLab</b></div>
+    <div>Status<b>Concept prototypes — not live</b></div>
+  </div>
+</div></header>
+
+<div class="finding"><div class="wrap">
+  <div class="fbox">
+    <div class="kick" style="color:var(--warn);margin-bottom:10px">The finding that shaped all five</div>
+    <h2>The Projects page has no projects on it.</h2>
+    <p>rasasurvey.com lists ten project <em>categories</em> — airport and port, hydropower, pipeline, transmission line, mining, parcellary — and not a single project inside them. No client names, no dates, no scope, no numbers. The Technology page carries one instrument.</p>
+    <p>Thirty years of surveying the country's expressways, bridges, dams and grid corridors, and <em>almost none of it is on the web.</em> That is not a design problem. It is the most valuable unbuilt asset in the business, and it is why a procurement officer comparing three firms cannot currently choose RASA on evidence.</p>
+  </div>
+</div></div>
+
+<section><div class="wrap">
+  <div class="shead">
+    <div class="kick">How to read these</div>
+    <h2>Two decisions, not one.</h2>
+    <p>Most website reviews collapse into taste. This one shouldn't. There are two separate questions and they have different right answers.</p>
+  </div>
+  <div class="axes">
+    <div class="ax"><div class="n">Decision A · Strategy</div><h3>What is the site for?</h3><p>Winning tenders? Selling equipment? Proving national coverage? Fixing the content bottleneck? This is a business decision, and it belongs to RASA. The five concepts each answer it differently.</p></div>
+    <div class="ax"><div class="n">Decision B · Style</div><h3>What should it look like?</h3><p>Colour, type, imagery, motion. Easy to change later and cheap to iterate. Do <em>not</em> let this drive Decision A — a direction that looks good but serves the wrong audience is the expensive mistake.</p></div>
+  </div>
+  <div class="note"><p><strong>Practical note:</strong> it is completely legitimate to say "the strategy of 04, the look of 02." That is a useful answer. What is <em>not</em> useful is "the header of 02 with the colours of 04 and the layout of 01" — that produces a website nobody designed.</p></div>
+
+  <div class="ax" style="margin-top:22px;border-color:rgba(74,222,128,.4)">
+    <div class="n" style="color:var(--ok)">The thing worth understanding before you choose</div>
+    <h3>"Generic" is a content problem, not a layout problem.</h3>
+    <p style="font-size:15px;line-height:1.75;margin-top:10px">Look at any well-made contractor or engineering website and you will find the same skeleton: photo hero with two buttons, icon trust strip, sectors, services grid, featured projects, numbered process, testimonials, FAQ, fat footer. It repeats because it works — it is the path a B2B buyer expects to walk, and deviating from it costs trust rather than earning attention.<br><br>
+    What makes those sites feel interchangeable is not the skeleton. It is that the <em>contents of the slots are fungible</em> — "450+ projects", "98% satisfaction", "Quality Craftsmanship" could belong to any company in any country.<br><br>
+    <strong style="color:var(--tx)">Put CLLEX, the Bataan–Cavite Interlink Bridge, the RIEGL miniVUX-1UAV, PRS92 and ±7 cm into those same slots and the identical layout stops being generic.</strong> Conventional structure, specific substance. That is what Concept 06 is, and it is why it is the recommendation.</p>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="shead"><div class="kick">The six</div><h2>Each one fixes a different problem.</h2>
+  <p>06 is the recommendation. The other five exist so the choice is informed — and so their best sections can be borrowed into whichever one wins.</p></div>
+  <div class="cards">
+
+    <div class="c" style="border-color:rgba(74,222,128,.45)">
+      <div class="cgrid">
+        <div class="cno" style="color:var(--ok)">06<i style="background:var(--ok)"></i></div>
+        <div>
+          <h3>The Standard <span style="font-family:var(--m);font-size:10px;letter-spacing:.14em;background:rgba(74,222,128,.14);color:var(--ok);padding:4px 9px;border-radius:3px;vertical-align:middle;margin-left:8px">RECOMMENDED</span></h3>
+          <div class="bet">The proven B2B infrastructure pattern, done properly: photo hero with two CTAs, trust strip, sectors, services grid, featured projects, process steps, reviews, FAQ, fat footer. Nothing here is invented — this layout is conventional <em>because it converts</em>, and conservative buyers read convention as competence.</div>
+          <div class="sig">Signature — the whole industry-standard skeleton, filled with RASA's actual specifics</div>
+        </div>
+        <div class="spec">
+          <div class="sp"><span>For</span><b>Everyone. It offends nobody and converts.</b></div>
+          <div class="sp"><span>Brands</span><b>Utility-bar switcher + Group section</b></div>
+          <div class="sp"><span>Risk</span><b>Lowest risk on the page</b></div>
+          <div class="sp"><span>Palette</span><b><span class="pal"><i style="background:#0E2A42"></i><i style="background:#2AA3C4"></i><i style="background:#F5A524"></i><i style="background:#F4F7F9"></i></span></b></div>
+        </div>
+        <div class="cgo"><a href="concepts/06-the-standard.html" class="btn btn-p">Open 06 →</a></div>
+      </div>
+      <div class="fixes"><b>Fixes</b>Everything adequately, nothing brilliantly. The safe, correct, sellable answer — and the one most likely to be approved on Friday.</div>
+    </div>
+
+    <div class="c">
+      <div class="cgrid">
+        <div class="cno">01<i style="background:var(--c1)"></i></div>
+        <div>
+          <h3>Instrument Grade</h3>
+          <div class="bet">The technology leader. Dark, precise, spec-dense — the site reads like a well-calibrated device. This is the direction closest to the CHCNAV reference RASA supplied, and it builds on the design system already produced.</div>
+          <div class="sig">Signature — live point cloud, published sensor tolerances</div>
+        </div>
+        <div class="spec">
+          <div class="sp"><span>For</span><b>Engineers who compare specs</b></div>
+          <div class="sp"><span>Brands</span><b>Tab switcher in the utility bar</b></div>
+          <div class="sp"><span>Risk</span><b>Safest — also the least differentiated</b></div>
+          <div class="sp"><span>Palette</span><b><span class="pal"><i style="background:#05090C"></i><i style="background:#00A9E0"></i><i style="background:#FFB020"></i><i style="background:#E9EFF3"></i></span></b></div>
+        </div>
+        <div class="cgo"><a href="concepts/01-instrument-grade.html" class="btn btn-p">Open 01 →</a></div>
+      </div>
+      <div class="fixes"><b>Fixes</b>Credibility against international competitors. Baseline, client-endorsed.</div>
+    </div>
+
+    <div class="c">
+      <div class="cgrid">
+        <div class="cno">02<i style="background:var(--c2)"></i></div>
+        <div>
+          <h3>The National Record</h3>
+          <div class="bet">The map is the interface. Thirty years of projects plotted across Luzon, Visayas and Mindanao, filterable by sector. Cartographic, paper-toned, calm. No competitor in the Philippines can copy this — they don't have the thirty years.</div>
+          <div class="sig">Signature — interactive project map of the whole country</div>
+        </div>
+        <div class="spec">
+          <div class="sp"><span>For</span><b>Anyone asking "have you done this before?"</b></div>
+          <div class="sp"><span>Brands</span><b>Four toggleable map layers</b></div>
+          <div class="sp"><span>Risk</span><b>Needs project data to be real</b></div>
+          <div class="sp"><span>Palette</span><b><span class="pal"><i style="background:#FBF8F1"></i><i style="background:#2E5D4B"></i><i style="background:#2C6E8F"></i><i style="background:#C05A34"></i></span></b></div>
+        </div>
+        <div class="cgo"><a href="concepts/02-national-record.html" class="btn btn-p">Open 02 →</a></div>
+      </div>
+      <div class="fixes"><b>Fixes</b>The empty Projects page — turns the biggest liability into the biggest asset.</div>
+    </div>
+
+    <div class="c">
+      <div class="cgrid">
+        <div class="cno">03<i style="background:var(--c3)"></i></div>
+        <div>
+          <h3>The Bid Book</h3>
+          <div class="bet">Institutional authority. Serif, paper, gold rules, a formal Register of Works and an Instrument Register you can hand to a prequalification committee. Built for one reader: the person deciding your shortlist.</div>
+          <div class="sig">Signature — downloadable capability statement</div>
+        </div>
+        <div class="spec">
+          <div class="sp"><span>For</span><b>Government procurement, prime contractors</b></div>
+          <div class="sp"><span>Brands</span><b>Formal group masthead, four divisions</b></div>
+          <div class="sp"><span>Risk</span><b>Reads conservative — deliberately</b></div>
+          <div class="sp"><span>Palette</span><b><span class="pal"><i style="background:#F7F4ED"></i><i style="background:#14181C"></i><i style="background:#A8813F"></i><i style="background:#DFD8C9"></i></span></b></div>
+        </div>
+        <div class="cgo"><a href="concepts/03-bid-book.html" class="btn btn-p">Open 03 →</a></div>
+      </div>
+      <div class="fixes"><b>Fixes</b>Public bidding. DPWH-style shortlisting where evidence beats aesthetics.</div>
+    </div>
+
+    <div class="c">
+      <div class="cgrid">
+        <div class="cno">04<i style="background:var(--c4)"></i></div>
+        <div>
+          <h3>The Exchange</h3>
+          <div class="bet">Commerce-led. The instruments and drone arms come to the front with a real catalogue, specs, stock and a quote list — and a 60-second qualifier that scores and routes every enquiry before anyone spends time on it.</div>
+          <div class="sig">Signature — the lead qualifier. Try it in the hero.</div>
+        </div>
+        <div class="spec">
+          <div class="sp"><span>For</span><b>Equipment buyers, and everyone stuck in Messenger</b></div>
+          <div class="sp"><span>Brands</span><b>Full switcher, commerce is the default</b></div>
+          <div class="sp"><span>Risk</span><b>Largest build — needs product data</b></div>
+          <div class="sp"><span>Palette</span><b><span class="pal"><i style="background:#0F172A"></i><i style="background:#E8461E"></i><i style="background:#123A5E"></i><i style="background:#F5F7FA"></i></span></b></div>
+        </div>
+        <div class="cgo"><a href="concepts/04-exchange.html" class="btn btn-p">Open 04 →</a></div>
+      </div>
+      <div class="fixes"><b>Fixes</b>The stated #1 problem — poor lead qualification and cold follow-up. Also monetises the arms currently living on Facebook.</div>
+    </div>
+
+    <div class="c">
+      <div class="cgrid">
+        <div class="cno">05<i style="background:var(--c5)"></i></div>
+        <div>
+          <h3>The Field Dispatch</h3>
+          <div class="bet">The website as a publishing system. Editorial, photography-led, built so one field day produces nine assets — a project record, a long read, LinkedIn posts, a short video, a newsletter item, a capability slide.</div>
+          <div class="sig">Signature — the content engine diagram</div>
+        </div>
+        <div class="spec">
+          <div class="sp"><span>For</span><b>The multimedia team, LinkedIn, recruitment</b></div>
+          <div class="sp"><span>Brands</span><b>Four editorial desks under one masthead</b></div>
+          <div class="sp"><span>Risk</span><b>Hungriest for photography — none exists yet</b></div>
+          <div class="sp"><span>Palette</span><b><span class="pal"><i style="background:#1A1815"></i><i style="background:#F2EFE9"></i><i style="background:#FF5A1F"></i><i style="background:#5C6B4A"></i></span></b></div>
+        </div>
+        <div class="cgo"><a href="concepts/05-field-dispatch.html" class="btn btn-p">Open 05 →</a></div>
+      </div>
+      <div class="fixes"><b>Fixes</b>Ron and Jimbo's bottleneck — repetitive posts, long video edits, falling engagement.</div>
+    </div>
+
+  </div>
+
+  <div class="note" style="border-left-color:var(--ok)"><p><strong>These are not mutually exclusive.</strong> If 06 wins — and it probably should — the strongest sections of the others drop straight into it as modules, without changing the skeleton: <strong>02's project map</strong> becomes a section above Featured Projects. <strong>04's qualifier</strong> replaces the "Get a Quote" form. <strong>03's Register of Works</strong> becomes the Projects page behind "View All". <strong>05's field reports</strong> become the News section. That is the real outcome of building six — not one winner and five wasted, but a conventional frame with four unusually good parts bolted in.</p></div>
+</div></section>
+
+<section class="dec"><div class="wrap">
+  <div class="shead">
+    <div class="kick">The decision instrument</div>
+    <h2>Don't ask them which one they like.</h2>
+    <p class="bad">"Which do you prefer?" produces taste, hedging, and a Frankenstein brief. Ask these four instead — they produce a decision.</p>
+  </div>
+  <div class="q"><div class="qn">Question 01</div><h3>Where does next year's revenue actually come from — services, or equipment?</h3><p>If services and public bidding, the answer is 02 or 03. If equipment sales, it's 04. This single question eliminates three of the five.</p></div>
+  <div class="q"><div class="qn">Question 02</div><h3>Picture the person you most want on this site. Who are they?</h3><p>A DPWH shortlisting officer, a private consultant's project engineer, a buyer comparing GNSS receivers, or a graduate geodetic engineer looking for a job. Each points somewhere different.</p></div>
+  <div class="q"><div class="qn">Question 03</div><h3>Can you supply the project records — client, year, scope, instrument?</h3><p>02 and 03 are the strongest concepts, and both are worthless without this data. If it can't be assembled, say so now and the choice narrows honestly.</p></div>
+  <div class="q"><div class="qn">Question 04</div><h3>Is the content bottleneck a website problem or a staffing problem?</h3><p>If the team will keep producing weekly regardless, 05 multiplies their output. If nobody will feed it, 05 becomes an empty magazine — the worst outcome on this page.</p></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead"><div class="kick">What we need from RASA</div><h2>Every highlighted block is something only you can supply.</h2>
+  <p>Open any concept and press <span class="m" style="color:var(--warn)">Highlight placeholders</span> in the bottom bar. Everything that lights up is invented content standing in for something real. This is the content request, made visible.</p></div>
+  <div class="needs">
+    <div class="nd"><span class="pri p1">Blocking</span><h4>Project records</h4><ul>
+      <li>10–15 flagship projects: client, year, location, scope</li>
+      <li>Instrument used and delivered accuracy per project</li>
+      <li>Permission to name clients publicly</li>
+      <li>CLLEX and BCIB details — already public, already strong</li></ul></div>
+    <div class="nd"><span class="pri p2">High</span><h4>Photography &amp; video</h4><ul>
+      <li>Crews in the field, instruments in use</li>
+      <li>Drone operations and the aircraft themselves</li>
+      <li>Principal and team portraits</li>
+      <li>Any existing raw footage — even phone clips</li>
+      <li>Point cloud or ortho exports we can render</li></ul></div>
+    <div class="nd"><span class="pri p3">Standard</span><h4>Company &amp; product</h4><ul>
+      <li>Logo files for all four companies (SVG preferred)</li>
+      <li>Brand colours, if any are documented</li>
+      <li>Equipment specs — 1 or 2 samples to start</li>
+      <li>Accreditations, PCAB, ISO, licences</li>
+      <li>Real figures for the statistics strip</li></ul></div>
+  </div>
+  <div class="note"><p><strong>On the numbers:</strong> every statistic in these prototypes — 1,240 projects, 86k hectares, 17 regions — is invented to show the layout. None of it goes live unverified. That is exactly what the highlight toggle is for.</p></div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <div class="shead"><div class="kick">Architecture</div><h2>One site, four companies — solved five ways.</h2>
+  <p>RASA owns all four and wants one site to maintain. That is the right call, and it is a design problem worth deciding deliberately rather than defaulting to tabs.</p></div>
+  <div class="axes" style="grid-template-columns:1fr">
+    <div class="ax"><div class="n">The options on the table</div><p style="font-size:15px;line-height:1.75">
+    <strong style="color:var(--tx)">01 — Persistent tab switcher.</strong> Four tabs in the utility bar, always visible. Familiar, cheap, slightly bureaucratic.<br>
+    <strong style="color:var(--tx)">02 — Map layers.</strong> Each company is a layer you toggle. Elegant, and it makes the group feel like one system rather than four brochures.<br>
+    <strong style="color:var(--tx)">03 — Formal divisions.</strong> A group masthead with four numbered divisions. Reads as a serious holding company.<br>
+    <strong style="color:var(--tx)">04 — Audience-first.</strong> The visitor picks what they need; the site routes to the right company invisibly. Best for conversion, hardest to build.<br>
+    <strong style="color:var(--tx)">05 — Editorial desks.</strong> Four desks under one masthead. Strong if the site publishes; meaningless if it doesn't.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>VibeCodersPH · Concept prototypes for RASA Group</span>
+  <span>Not live sites · All figures illustrative · 08 Aug 2026</span>
+</div></footer>
+
+</body>
+</html>
