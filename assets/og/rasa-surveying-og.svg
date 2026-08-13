@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">RASA Surveying</title>
+  <desc id="desc">Engineering-grade survey intelligence from the Philippines with UAV survey imagery, proof points, and technology partners.</desc>
+  <defs>
+    <linearGradient id="scrim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#071D30" stop-opacity=".98"/>
+      <stop offset=".48" stop-color="#071D30" stop-opacity=".87"/>
+      <stop offset="1" stop-color="#071D30" stop-opacity=".28"/>
+    </linearGradient>
+    <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#071D30" stop-opacity="0"/>
+      <stop offset="1" stop-color="#071D30" stop-opacity=".72"/>
+    </linearGradient>
+    <filter id="whiteLogo" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+    </filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 .1"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <image xlink:href="../img/rasa-uavdrone-1.jpg" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>
+  <rect width="1200" height="630" fill="url(#scrim)"/>
+  <rect width="1200" height="630" fill="url(#bottomFade)"/>
+  <rect width="1200" height="630" filter="url(#grain)" opacity=".16"/>
+
+  <image xlink:href="../img/rasa-logo.png" x="58" y="45" width="238" height="79" preserveAspectRatio="xMinYMid meet"/>
+  <text x="58" y="174" fill="#FFCC73" font-family="Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="3.2">ENGINEERING-GRADE SURVEY INTELLIGENCE</text>
+  <rect x="58" y="192" width="58" height="3" fill="#F5A524"/>
+  <text x="58" y="304" fill="#FBFCFA" font-family="Arial, sans-serif" font-size="82" font-weight="900" letter-spacing="-3">RASA</text>
+  <text x="58" y="384" fill="#FFCC73" font-family="Georgia, serif" font-size="78" font-style="italic" letter-spacing="-3">SURVEYING</text>
+  <text x="60" y="424" fill="#D5E7EB" font-family="Arial, sans-serif" font-size="17" letter-spacing=".2">Precise ground data for the country's biggest builds.</text>
+
+  <rect x="832" y="78" width="300" height="212" rx="6" fill="#071D30" fill-opacity=".78" stroke="#8AE4E8" stroke-opacity=".38"/>
+  <text x="864" y="120" fill="#FFCC73" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="2.4">PROOF THAT HOLDS</text>
+  <text x="864" y="174" fill="#FBFCFA" font-family="Arial, sans-serif" font-size="38" font-weight="900">30+ YEARS</text>
+  <text x="864" y="201" fill="#AFC5D0" font-family="Arial, sans-serif" font-size="14">Continuous practice since 1994</text>
+  <line x1="864" y1="222" x2="1098" y2="222" stroke="#FFFFFF" stroke-opacity=".2"/>
+  <text x="864" y="252" fill="#FBFCFA" font-family="Arial, sans-serif" font-size="14" font-weight="700" letter-spacing=".5">PRC LICENSED</text>
+  <text x="864" y="274" fill="#AFC5D0" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing=".7">NATIONWIDE  ·  UAV LIDAR</text>
+
+  <rect x="0" y="548" width="1200" height="82" fill="#071D30" fill-opacity=".96"/>
+  <text x="58" y="579" fill="#8AE4E8" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="2.3">RASA SURVEYING  /  PARTNERS</text>
+  <image xlink:href="../img/rasa-DigitalGlobe.png" x="58" y="593" width="136" height="26" preserveAspectRatio="xMinYMid meet" filter="url(#whiteLogo)" opacity=".86"/>
+  <image xlink:href="../img/rasa-easymap-uav-logo.png" x="274" y="590" width="116" height="32" preserveAspectRatio="xMinYMid meet" filter="url(#whiteLogo)" opacity=".86"/>
+  <image xlink:href="../img/rasa-supergeo.png" x="474" y="591" width="126" height="30" preserveAspectRatio="xMinYMid meet" filter="url(#whiteLogo)" opacity=".86"/>
+  <text x="682" y="613" fill="#FBFCFA" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="-1" opacity=".86">Hi-Target</text>
+  <text x="926" y="614" fill="#FBFCFA" font-family="Arial, sans-serif" font-size="28" font-weight="900" letter-spacing="-1.2" opacity=".88">RIEGL</text>
+</svg>
