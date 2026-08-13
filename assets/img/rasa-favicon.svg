@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">RASA Surveying</title>
+  <circle cx="32" cy="32" r="31" fill="#071D30"/>
+  <circle cx="32" cy="32" r="27" fill="#C7CBD0"/>
+  <circle cx="32" cy="32" r="27" fill="none" stroke="#F2F6F6" stroke-width="1.5" opacity=".72"/>
+  <path fill="#0B8AC4" fill-rule="evenodd" d="M15 11h20c9 0 15 4 15 13 0 7-4 11-10 13l11 16H39L29 40h-7v13h-7V11Zm7 7v15h11c5 0 8-2 8-7s-3-8-8-8H22Z"/>
+</svg>
